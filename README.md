@@ -3,11 +3,13 @@
 
 ### Todo
 **Functional**  
+
 **_General_**
 - [ ] Search items by dietary preference
   - [ ] Common allergens
   - [ ] Alcohol content
   - [ ] Tannins (wine)
+
 **_Customers_**  
 - [ ] Open ordering menu
 - [ ] Order items
@@ -17,6 +19,7 @@
     - [ ] Split bill
 - [ ] Change order
 - [ ] Payment
+
 **_VIP_**  
 - [ ] Login (table)
 - [ ] Logout
@@ -25,6 +28,7 @@
 - [ ] Pay from account balance (table)
 - [ ] Fetch special drink from storage
 - [ ] Add to account (bar)
+
 **_Staff_**  
 - [ ] Login
 - [ ] Logout
@@ -39,6 +43,7 @@
 - [ ] Fetch order for certain table
   - [ ] Edit ordered items
   - [ ] Set manner of bill payment
+
 **_Bartender_**  
 - [ ] Manage stock
   - [ ] Edit amounts (food included)
