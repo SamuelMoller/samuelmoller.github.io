@@ -3,7 +3,12 @@
 
 ### Todo
 **Functional**  
-_Customers_  
+**_General_**
+- [ ] Search items by dietary preference
+  - [ ] Common allergens
+  - [ ] Alcohol content
+  - [ ] Tannins (wine)
+**_Customers_**  
 - [ ] Open ordering menu
 - [ ] Order items
   - [ ] Single order
@@ -11,16 +16,16 @@ _Customers_
     - [ ] Single bill
     - [ ] Split bill
 - [ ] Change order
-- [ ] Payment  
-_VIP_  
+- [ ] Payment
+**_VIP_**  
 - [ ] Login (table)
 - [ ] Logout
 - [ ] Order items
 - [ ] Display account balance (table)
 - [ ] Pay from account balance (table)
 - [ ] Fetch special drink from storage
-- [ ] Add to account (bar)  
-_Staff_  
+- [ ] Add to account (bar)
+**_Staff_**  
 - [ ] Login
 - [ ] Logout
 - [ ] Display product availability
@@ -33,17 +38,12 @@ _Staff_
 - [ ] Notify security staff
 - [ ] Fetch order for certain table
   - [ ] Edit ordered items
-  - [ ] Set manner of bill payment  
-_Bartender_  
+  - [ ] Set manner of bill payment
+**_Bartender_**  
 - [ ] Manage stock
   - [ ] Edit amounts (food included)
   - [ ] Order refill of certain items
-  - [ ] Add/remove items from menu  
-_General_
-- [ ] Search items by dietary preference
-  - [ ] Common allergens
-  - [ ] Alcohol content
-  - [ ] Tannins (wine)
+  - [ ] Add/remove items from menu
 
 **Non-functional**
 - [ ] Interface is thematically correct
