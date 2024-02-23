@@ -1,0 +1,165 @@
+/* Mobil */
+@import 'desktop.css' screen;
+@media screen and (max-width: 670px) {
+
+	/* || GENERAL STYLES */
+	* {
+		font-size: 3vmin;
+	}
+
+	ul {
+		padding-left: 0;
+	}
+
+		ul li {
+			font-size: 1em;
+		}
+
+	ol {
+		padding-left: 0;
+	}
+
+		ol li {
+			font-size: 0.8em;
+		}
+
+    .wrapper {
+		width:90%;
+		margin-left: 2vw;
+		margin-right: auto;
+	}
+
+	.titlecard {
+		width: 100%;
+	}
+
+	.about-profile-content iframe {
+		width: 100%;
+	}
+
+	.about-profile-content-sektioner {
+		flex-flow: column nowrap;
+	}
+
+		.about-profile-content-sektioner img {
+			width: 30vmin;
+			height: 30vmin;
+			padding-right: 0;
+		}
+
+	.content {
+		width: 100%;
+	}
+
+	.title {
+		padding-top: 50px;
+	}
+
+	.menu-content h4 {
+		font-size: 1.5em;
+	}
+
+	.resp-container {
+		padding-top: 100%;
+	}
+
+	.proppen-profile-content p {
+		font-size: 0.75em;
+	}
+
+	.proppen-profile-content h3 {
+		font-size: 1em;
+	}
+
+	.schema-container-content img {
+		width: 130%;
+	}
+
+	.menu-profile {
+		flex-flow: column nowrap;
+		align-items: center;
+	}
+
+		.menu-profile img {
+			width: 50vmin;
+			height: 66vmin;
+		}
+
+	.menu-profile-content {
+		align-items: center;
+	}
+
+	/* || SIDENAV */
+    .sidenav {
+		width: 100%;
+		top: 0px;
+		padding-top: 5px;
+		border-radius: 0;
+	}
+		.sidenav label {
+			font-family: 'Sedgwick Ave Display', cursive;
+			font-size: 20px;
+			display: block;
+			cursor: pointer;
+			padding: 0 0 0 10px;
+			content: '\02795';
+		}
+
+		.sidenav ul {
+			width: 100%;
+		}
+
+		.sidenav ul li a {
+			font-size: 10px;
+			width:110%;
+		}
+
+		.sidenav p {
+			font-size: 1.2em;
+		}
+
+		.sidenav-content {
+			display: none;
+		}
+
+		.collapsible input {
+			display: none;
+		}
+
+			.collapsible input:checked {
+				display: none;
+			}
+
+				.collapsible input:checked ~ .sidenav-content {
+					display: block;
+				}
+
+	.header-sidenav a {
+		text-align: center;
+		float: none;
+	}
+
+	/* || UNIQUE SELECTORS */
+	#menu-profile-slider {
+		width: 60vmin;
+		padding-bottom: 1em;
+	}
+
+	#verksamheter-mfk {
+		width: 30%;
+	}
+
+	#verksamheter-gb {
+		width: 70%;
+	}
+
+	#verksamheter-mer {
+		width: 90%;
+	}
+
+	#volontarer-img {
+		width: 100%;
+		height: auto;
+		border-radius: 15px;
+	}
+}
