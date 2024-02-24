@@ -3,13 +3,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8"/>
     <title>The Old Sea Turtle</title>
-    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 
+    <!-- Load libraries -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="res/json/loader.js"></script>
+
+    <!-- Load application -->
     <script type="text/javascript" src="res/json/Beverages.js"></script>
     <script type="text/javascript" src="res/json/DBLoaded.js"></script>
-    <script type="text/javascript" src="res/json/loader.js"></script>
+    
 
 </head>
 
