@@ -15,8 +15,18 @@
     </head>
     <body>
     <!---
-    The html-file is just for loading the javascript files. If you go to the console under the "Inspect" of the popup menu,
-    then you can enter javascript calls, to test the functions.
+        Placing an order:
+        1. jQuery append "Order now" button to body
+        2. Append div with list of clickable beverages
+        3. Add clicked items to model list
+        4. When "Place order" button is clicked, print the model list and order confirmation
+
+        Editing an order:
+        1. jQuery append "Edit order" button to ordering interface
+        2. When "Edit order" button is clicked, print the model list
+        3. Add div with list of clickable beverages marked 'X'
+        4. When beverages are click removed, remove them from the model list
+        5. When user saves, update the model list and return to ordering interface
     -->
         <script>
             $("document").ready(function() {    // When document is ready/loaded
@@ -31,9 +41,23 @@
                     $.each(data, function(key, val) {   // Iterate over entries
                         console.log(val.name + ", " + val.country);  // Print the name of the entry
                     });
-                }).fail(function(jqXHR, textStatus, errorThrown) {
+                }).fail(function(jqXHR, textStatus) {
                     console.log("error: " + textStatus);
                     console.log("incoming Text: " + jqXHR.responseText);
+                });
+
+                $("body").append("<button id='orderNow'>Order now</button>");  // Append button element to body
+                $("#orderNow").on("click", function(){
+                    $("body").append("<div id='beverages'></div>");  // Append div element to body
+                    $.getJSON("res/json/Beverages.js", function(data) { // Load JSON database
+                        $.each(data, function(key, val) {   // Iterate over entries
+                            // Create paragraph element, attach click handler, and append to div
+                            $("<p>").text(val.name).on("click", function() {
+                                console.log("You clicked " + val.name);
+                            }).appendTo("#beverages");
+                        });
+                    });
+                    $("body").append("<button id='placeOrder'>Place order</button>");  // Append button element to body 
                 });
             });
         </script>
