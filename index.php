@@ -4,12 +4,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Database Base Document</title>
+    <title>The Old Sea Turtle</title>
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 
-    <script type="text/javascript" src="Beverages.js"></script>
-    <script type="text/javascript" src="DBLoaded.js"></script>
-    <script type="text/javascript" src="loader.js"></script>
+    <script type="text/javascript" src="res/json/Beverages.js"></script>
+    <script type="text/javascript" src="res/json/DBLoaded.js"></script>
+    <script type="text/javascript" src="res/json/loader.js"></script>
 
 </head>
 
