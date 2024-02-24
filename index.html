@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8"/>
+        <title>The Old Sea Turtle</title>
+
+        <!-- Load libraries -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script type="text/javascript" src="res/json/loader.js"></script>
+
+        <!-- Load databases -->
+        <script type="text/javascript" src="res/json/Beverages.js"></script>
+        <script type="text/javascript" src="res/json/DBLoaded.js"></script>
+    </head>
+    <body>
+    <!---
+    The html-file is just for loading the javascript files. If you go to the console under the "Inspect" of the popup menu,
+    then you can enter javascript calls, to test the functions.
+    -->
+        <script>
+            $("document").ready(function() {    // When document is ready/loaded
+                $("body").append("<h1>Page loaded successfully</h1>");  // Append header element to body
+                $("body").append("<p>Open the console to test the functions</p>");
+                $("body").append("<p id='demo'></p>"); // Append empty paragraph element to body
+                $("#demo").text("Hello world!");    // Modify the text of the above paragraph element
+                
+                // Load JSON database and for each key (entry),
+                // print that corresponding value's name.
+                $.getJSON("res/json/Beverages.js", function(data) { // Load JSON database
+                    $.each(data, function(key, val) {   // Iterate over entries
+                        console.log(val.name + ", " + val.countryoforiginlandname);  // Print the name of the entry
+                    });
+                }).fail(function() {
+                    console.log("An error occurred");
+                });
+            });
+        </script>
+    </body>
+</html>
