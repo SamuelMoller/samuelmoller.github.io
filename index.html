@@ -6,13 +6,13 @@
         <title>The Old Sea Turtle</title>
 
         <!-- Load libraries -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script type="text/javascript" src="res/json/loader.js"></script>
-        <script type="text/javascript" src="res/json/Order.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="res/json/loader.js"></script>
+        <script src="res/json/OrderHandler.js"></script>
 
         <!-- Load databases -->
-        <script type="text/javascript" src="res/json/Beverages.js"></script>
-        <script type="text/javascript" src="res/json/DBLoaded.js"></script>
+        <script src="res/json/Beverages.js"></script>
+        <script src="res/json/DBLoaded.js"></script>
 
         <!-- Load stylesheets -->
         <link rel="stylesheet" type="text/css" media="screen and (min-width: 320px)" href="res/css/phone.css?version=1.0.0">
@@ -36,17 +36,8 @@
     -->
         <script>
             $("document").ready(function() {    // When document is ready/loaded
-                /* 
-                $("body").append("<h1>Page loaded successfully</h1>");  // Append header element to body
-                $("body").append("<p>Open the console to test the functions</p>");
-                $("body").append("<p id='demo'></p>"); // Append empty paragraph element to body
-                $("#demo").text("Hello world!");    // Modify the text of the above paragraph element
-                */
                 var OH = new OrderHandler();    
                 OH.buildOrderMenu();
-                
-                // debugLogBeers();
-                // buildOrderMenu();
             });
         </script>
     </body>

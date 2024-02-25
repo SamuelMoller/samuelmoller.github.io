@@ -1,9 +1,13 @@
-/* || GENERAL STYLES */
+/* || GENERAL STYLES */ 
 * {
     font-size: 6vmin;
 }
 
 body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-color: #EDE8DB;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -19,9 +23,34 @@ button {
 
 #beverages {
     display: flex;
-    flex-direction: column;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     padding: 0;
     margin: 0;
+}
+
+#orderMenu {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 75%;
+}
+
+.beverageItemContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+.beverageItem_L {
+    padding-right: 0.25em;
+}
+
+.beverageItem_R {
+    visibility: hidden;
+    padding-left: 0.25em;
 }
