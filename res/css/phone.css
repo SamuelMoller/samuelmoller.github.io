@@ -1,0 +1,27 @@
+/* || GENERAL STYLES */
+* {
+    font-size: 6vmin;
+}
+
+body {
+    background-size: cover;
+    background-color: #EDE8DB;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
+    color: black;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke: .02em black;
+}
+
+button {
+    border-radius: 0.3em;
+}
+
+#beverages {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
