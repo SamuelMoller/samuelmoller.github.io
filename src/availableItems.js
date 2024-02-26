@@ -76,7 +76,7 @@ $(document).ready(function() {
     // Generate the HTML table for the Show All Strong Beverages button
     $("#showAllStrongBeveragesBtn").click(function() {
         var beverages = allDrinksInformation('strong', 20);
-        var tableHtml = '<table border="1"><tr><th>Name</th><th>Producer</th><th>Country of Origin</th><th>Category</th><th>Alcohol Strenght</th><th>Grape</th><th>Ecologic</th><th>Serving Size</th><th>Price</th></tr>';
+        var tableHtml = '<table border="1"><tr><th>Name</th><th>Year</th><th>Producer</th><th>Country of Origin</th><th>Category</th><th>Alcohol Strenght</th><th>Grape</th><th>Ecologic</th><th>Serving Size</th><th>Price</th></tr>';
         for (var i = 0; i < beverages.length; i++) {
             tableHtml += '<tr>';
             tableHtml += '<td>' + (beverages[i][0] || '') + '</td>'; // namn
