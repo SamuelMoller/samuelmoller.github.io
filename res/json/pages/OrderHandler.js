@@ -6,22 +6,27 @@
 // method that prints all beers from the JSON database file.
 // =====================================================================================================
 
-import { Order } from "../Order.js"; // Import Order class from Order.js
+import { Order } from "../struct/Order.js"; // Import Order class from Order.js
 
 export class OrderHandler {
-    constructor() {
+    constructor(arg1) {
         this.items = new Map(); // Create a map to store items in the order
-        this.buildOrderMenu(); // Call buildOrderMenu() when object is created
-        console.log("OrderHandler() created");
+        this.buildOrderMenu(arg1); // Call buildOrderMenu() when object is created
     }
 
 // =====================================================================================================
-    buildOrderMenu() {
-        let self = this; // Save reference to this object (damn Javascript enclosures)
-        $("main").append("<div id='orderMenu'></div>"); // Append div element to 'content'
-        $("#orderMenu").append("<button id='orderNow'>Order now</button>"); // Append button element to body
-        $("#orderNow").on("click", function(){
-            self.listItems(); // Call listItems() when button is clicked
+    buildOrderMenu(element) {
+        let self = this;
+        let order = new Order();
+        $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
+        $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
+        $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
+            $.each(data, function(key, val) { // Iterate over entries
+                $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
+                    order.addItem(val.name); // Add item to order
+                }).appendTo("#orderBackground");
+                $("<p class=beverageItem_L>").text(val.name).appendTo("#orderContainer" + val.nr);
+            });
         });
     }
 

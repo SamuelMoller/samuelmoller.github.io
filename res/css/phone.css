@@ -81,18 +81,83 @@ main {
     justify-content: center;
     width: 100%;
 }
-#hero-img {
-    width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    margin-bottom: 2vmin;
-}
 
 button {
     border-radius: 0.3em;
     background-color: rgb(219, 155, 35);
     color: white;
     text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
+}
+
+/* ===================================================================================================== */
+/* || HOMEPAGE */
+/* ===================================================================================================== */
+#homepageContent,
+#hero-img {
+    width: 100%;
+    height: 50vmin;
+    margin-bottom: 2vmin;
+}
+
+#hero-img {
+    object-fit: cover;
+    margin-bottom: 2vmin;
+}
+
+
+/* ===================================================================================================== */
+/* || ORDERING */
+/* ===================================================================================================== */
+#orderContent {
+    display: block;
+    width: 85%;
+    height: auto;
+}
+
+#orderBackground {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 253, 232);
+    width: 100%;
+    height: 50vmin;
+    border-radius: 0.3em;
+    gap: 2vmin;
+    padding: 1vmin;
+}
+
+.beverageItemContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 14%;
+    height: 50%;
+    cursor: default;
+    user-select: none;
+    background-color: blue;
+    border-radius: 0.3em;
+}
+    .beverageItemContainer img {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.3em;
+    }
+    .beverageItemContainer p {
+        font-size: 1.5vmin;
+    }
+
+#orderMenu {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
 }
 
 /* ===================================================================================================== */
@@ -110,34 +175,3 @@ footer {
 /* ===================================================================================================== */
 /* || ORDERING */
 /* ===================================================================================================== */
-#beverages {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-}
-
-#orderMenu {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-    width: 75%;
-}
-
-.beverageItemContainer {
-    display: flex;
-    flex-flow: row nowrap;
-    width: 100%;
-    cursor: default;
-    user-select: none;
-}
-
-.beverageItem_L {
-    padding-right: 0.25em;
-}
-
-.beverageItem_R {
-    visibility: hidden;
-    padding-left: 0.25em;
-}

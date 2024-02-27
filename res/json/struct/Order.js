@@ -8,7 +8,6 @@
 export class Order {
     constructor() {
         this.items = new Map(); // Create a map to store items in the order
-        console.log("Order() created");
     }
 
 // =====================================================================================================
