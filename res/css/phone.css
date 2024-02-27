@@ -1,33 +1,120 @@
-/* || GENERAL STYLES */ 
+/* ===================================================================================================== */
+/* || GENERAL */
+/* ===================================================================================================== */
 * {
-    font-size: 6vmin;
+    display: flex;
+    font-size: 3vmin;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+title {
+    display: none;
 }
 
 body {
     display: flex;
-    flex-direction: row;
+    flex-flow: column nowrap;
     align-items: center;
-    justify-content: center;
     background-size: cover;
-    background-color: #EDE8DB;
+    background-color: #242424;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
-    color: black;
-    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-    -webkit-text-stroke: .02em black;
+    color: white;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================================================================================================== */
+/* || HEADER */
+/* ===================================================================================================== */
+header,
+.header-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    width: 100%;
+    max-height: 10%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+    .header-content {
+        justify-content: start;
+        padding-left: 15vw;
+        padding-right: 15vw;
+    }
+        #header-content-left {
+            align-items: center;
+            justify-content: flex-start;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-left img {
+                width: 7vmin;
+                height: 7vmin;
+            }
+
+        #header-content-right {
+            align-items: center;
+            justify-content: flex-end;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-right p {
+                font-size: 2vmin;
+            }
+
+
+/* ===================================================================================================== */
+/* || MAIN CONTENT */
+/* ===================================================================================================== */
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#hero-img {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    margin-bottom: 2vmin;
 }
 
 button {
     border-radius: 0.3em;
+    background-color: rgb(219, 155, 35);
+    color: white;
+    text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
 }
 
+/* ===================================================================================================== */
+/* || FOOTER */
+/* ===================================================================================================== */
+footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 2vmin;
+}
+
+/* ===================================================================================================== */
+/* || ORDERING */
+/* ===================================================================================================== */
 #beverages {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    margin: 0;
 }
 
 #orderMenu {
@@ -35,8 +122,6 @@ button {
     flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    margin: 0;
     width: 75%;
 }
 
@@ -44,6 +129,8 @@ button {
     display: flex;
     flex-flow: row nowrap;
     width: 100%;
+    cursor: default;
+    user-select: none;
 }
 
 .beverageItem_L {

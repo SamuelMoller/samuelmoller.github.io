@@ -4,15 +4,17 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" charset="UTF-8"/>
         <title>The Old Sea Turtle</title>
+        <base href=".">
 
         <!-- Load libraries -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="res/json/loader.js"></script>
-        <script src="res/json/OrderHandler.js"></script>
+        <script type="module" src="res/json/pages/Wrapper.js"></script>
+        <script type="module" src="res/json/Order.js"></script>
+        <script type="module" src="res/json/pages/Orders.js"></script>
+        <script type="module" src="res/json/PageHandler.js"></script>
 
         <!-- Load databases -->
-        <script src="res/json/Beverages.js"></script>
-        <script src="res/json/DBLoaded.js"></script>
+        <script src="res/json/DB/Beverages.js"></script>
 
         <!-- Load stylesheets -->
         <link rel="stylesheet" type="text/css" media="screen and (min-width: 320px)" href="res/css/phone.css?version=1.0.0">
@@ -20,24 +22,5 @@
 		<link rel="stylesheet" type="text/css" media="screen and (min-width: 1025px)" href="res/css/desktop.css?version=1.0.0">
     </head>
     <body>
-    <!---
-        Placing an order:
-        1. jQuery append "Order now" button to body
-        2. Append div with list of clickable beverages
-        3. Add clicked items to model list
-        4. When "Place order" button is clicked, print the model list and order confirmation
-
-        Editing an order:
-        1. jQuery append "Edit order" button to ordering interface
-        2. When "Edit order" button is clicked, print the model list
-        3. Add div with list of clickable beverages marked 'X'
-        4. When beverages are click removed, remove them from the model list
-        5. When user saves, update the model list and return to ordering interface
-    -->
-        <script>
-            $("document").ready(function() {    // When document is ready/loaded
-                var OH = new OrderHandler();    
-            });
-        </script>
     </body>
 </html>
