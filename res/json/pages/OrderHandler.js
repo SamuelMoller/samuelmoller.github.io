@@ -11,23 +11,60 @@ import { Order } from "../struct/Order.js"; // Import Order class from Order.js
 export class OrderHandler {
     constructor(arg1) {
         this.items = new Map(); // Create a map to store items in the order
-        this.buildOrderMenu(arg1); // Call buildOrderMenu() when object is created
+        this.initOrderMenu(arg1); // Call buildOrderMenu() when object is created
+        this.initBasket();
     }
 
 // =====================================================================================================
-    buildOrderMenu(element) {
+    initOrderMenu(element) {
         let self = this;
-        let order = new Order();
         $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
         $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
         $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
             $.each(data, function(key, val) { // Iterate over entries
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
-                    order.addItem(val.name); // Add item to order
+                    self.addToBasket(val.name, val.priceinclvat, val.articleid); // Add item to order
                 }).appendTo("#orderBackground");
-                $("<p class=beverageItem_L>").text(val.name).appendTo("#orderContainer" + val.nr);
+                // $("<img>").text(val.name).appendTo("#orderContainer" + val.nr);
+                $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>");
+                $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
             });
         });
+    }
+
+// =====================================================================================================
+    initBasket() {
+        let self = this;
+        $("#orderContent").append("<div id='orderBasket'></div>");
+        $("#orderBasket").append("<div id='orderBasketHeader'></div>");
+        $("#orderBasket").append("<div id='orderBasketContent'></div>");
+        $("#orderBasket").append("<div id='orderBasketFooter'></div>");
+        $("#orderBasketHeader").append("<h2>Order</h2>");
+        $("#orderBasketFooter").append("<h2>Total: 0 kr</h2>");
+        $("#orderBasketFooter").append("<button id='orderNow'>Order now</button>");
+    }
+
+// =====================================================================================================
+    displayBasket(bool) {
+        if (bool) {
+            $("#orderContent").css("width", "80%");
+            $("#orderContent").css("left", "-7.5%");
+            $("#orderBasket").css("visibility", "visible");
+            $("[class='beverageItemContainer']").css("width", "11.9%");
+        } else {
+            $("#orderContent").css("width", "95%");
+            $("#orderContent").css("left", "0");
+            $("#orderBasket").css("visibility", "hidden");
+            $("[class='beverageItemContainer']").css("width", "10%");
+        }
+    }
+
+// =====================================================================================================
+    addToBasket(name, priceinclvat, articleid) {
+        let self = this;
+        if (self.items.size == 0) {
+            self.displayBasket(1)
+        }
     }
 
 // =====================================================================================================

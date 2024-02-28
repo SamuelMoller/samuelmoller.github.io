@@ -1,24 +1,14 @@
 // =====================================================================================================
 // Samuel Möller, 2024
-// 
-// This file contains the Wrapper class, which is responsible for creating a background wrapper
-// for the entire page.
+//
 // =====================================================================================================
 
-export class Wrapper {
+export class Header {
     constructor() {
-        this.initStructure();
+        this.initHeader();
     }
 
 // =====================================================================================================
-    initStructure() {
-        let self = this;
-        $("body").append("<header></header>");
-        $("body").append("<main></main>");
-        $("body").append("<footer></footer>");
-        self.initHeader();
-    }
-
     initHeader() {
         let self = this;
         $("header").append("<div class='header-content'></div>");
