@@ -25,7 +25,6 @@ export class OrderHandler {
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
                     self.addToBasket(val.name, val.priceinclvat, val.articleid); // Add item to order
                 }).appendTo("#orderBackground");
-                // $("<img>").text(val.name).appendTo("#orderContainer" + val.nr);
                 $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>");
                 $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
             });
@@ -64,6 +63,20 @@ export class OrderHandler {
         let self = this;
         if (self.items.size == 0) {
             self.displayBasket(1)
+        }
+        if (!self.items.has(articleid)) {
+            self.items.set(articleid, 1);
+            $("#orderBasketContent").append("<div id=basketItem" + articleid + " class='basketItem'></div>");
+            $("#basketItem" + articleid).append("<p id='" + articleid + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
+            $("#basketItem" + articleid).append("<p id='" + articleid + "-2' style='margin-left: auto;'>€" + priceinclvat + "</p>");
+            $("#" + articleid + "-1").append("<p id='" + articleid + "-1-sub' style='visibility: hidden; font-size: 0.5vw; margin-left: 1em;'>1 * €" + priceinclvat + "/each</p>");
+        } else {
+            self.items.set(articleid, self.items.get(articleid) + 1);
+            $("#" + articleid + "-1-sub").text(self.items.get(articleid) + " * €" + priceinclvat + "/each");
+            $("#" + articleid + "-2").text("€" + self.items.get(articleid) * priceinclvat);
+            if ( ($("#" + articleid + "-1-sub").css("visibility")) == "hidden" ) {
+                $("#" + articleid + "-1-sub").css("visibility", "visible");
+            }
         }
     }
 

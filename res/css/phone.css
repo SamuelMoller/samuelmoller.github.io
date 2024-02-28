@@ -173,8 +173,7 @@ main {
     height: 90%;
 }
     #orderBasket h2{
-        text-align: center;
-        font-size: 1.5vmin;
+        font-size: 2vmin;
     }
 #orderBasketHeader {
     display: flex;
@@ -188,6 +187,7 @@ main {
     box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
 }
 #orderBasketContent {
+    flex-flow: column nowrap;
     width: 100%;
     height: 80%;
     background-color: white;
@@ -208,11 +208,26 @@ main {
 }
     #orderBasketFooter button,
     #orderBasketFooter h2 {
-        text-align: center;
-        font-size: 1vmin;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 2vmin;
         flex: 0 0 40%; /* HACK: This is a temporary fix */
     }
-
+.basketItem {
+    flex-flow: row nowrap;
+    gap: 0.4vw;
+    color: black;
+    text-shadow: none;
+    white-space: nowrap;
+    margin-bottom: 0.1vw;
+    margin-top: 0.1vw;
+    margin-left: 0.4vw;
+    margin-right: 0.4vw;
+}
+    .basketItem p {
+        font-size: 0.8vw;
+    }
 /* ===================================================================================================== */
 /* || FOOTER */
 /* ===================================================================================================== */
