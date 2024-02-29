@@ -1,16 +1,18 @@
 // =====================================================================================================
 // Samuel Möller, 2024
-// 
+//
 // This file contains the OrderHandler class, which is responsible for creating an order menu,
 // listing items, adding items to an order, and printing the order. It also contains a debug
 // method that prints all beers from the JSON database file.
 // =====================================================================================================
 
 import { Order } from "../struct/Order.js"; // Import Order class from Order.js
+import { toFixed } from "../Utilities.js";
 
 export class OrderHandler {
     constructor(arg1) {
         this.items = new Map(); // Create a map to store items in the order
+        this.totalCost = 0;
         this.initOrderMenu(arg1); // Call buildOrderMenu() when object is created
         this.initBasket();
     }
@@ -39,7 +41,7 @@ export class OrderHandler {
         $("#orderBasket").append("<div id='orderBasketContent'></div>");
         $("#orderBasket").append("<div id='orderBasketFooter'></div>");
         $("#orderBasketHeader").append("<h2>Order</h2>");
-        $("#orderBasketFooter").append("<h2>Total: 0 kr</h2>");
+        $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
         $("#orderBasketFooter").append("<button id='orderNow'>Order now</button>");
     }
 
@@ -73,11 +75,13 @@ export class OrderHandler {
         } else {
             self.items.set(articleid, self.items.get(articleid) + 1);
             $("#" + articleid + "-1-sub").text(self.items.get(articleid) + " * €" + priceinclvat + "/each");
-            $("#" + articleid + "-2").text("€" + self.items.get(articleid) * priceinclvat);
+            $("#" + articleid + "-2").text("€" + toFixed(self.items.get(articleid) * priceinclvat, 2));
             if ( ($("#" + articleid + "-1-sub").css("visibility")) == "hidden" ) {
                 $("#" + articleid + "-1-sub").css("visibility", "visible");
             }
         }
+        self.totalCost += Number(priceinclvat)
+        $("#footerTotal").text("€" + toFixed(self.totalCost, 2));
     }
 
 // =====================================================================================================
