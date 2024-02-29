@@ -13,6 +13,7 @@ export class OrderHandler {
     constructor(arg1) {
         this.items = new Map(); // Create a map to store items in the order
         this.totalCost = 0;
+        this.order = new Order();
         this.initOrderMenu(arg1); // Call buildOrderMenu() when object is created
         this.initBasket();
     }
@@ -42,7 +43,9 @@ export class OrderHandler {
         $("#orderBasket").append("<div id='orderBasketFooter'></div>");
         $("#orderBasketHeader").append("<h2>Order</h2>");
         $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
-        $("#orderBasketFooter").append("<button id='orderNow'>Order now</button>");
+        $("<button id='orderNow'>Order now</button>").on("click", function() {
+            self.sendOrder();
+        }).appendTo("#orderBasketFooter");
     }
 
 // =====================================================================================================
@@ -64,7 +67,7 @@ export class OrderHandler {
     addToBasket(name, priceinclvat, articleid) {
         let self = this;
         if (self.items.size == 0) {
-            self.displayBasket(1)
+            self.displayBasket(1);
         }
         if (!self.items.has(articleid)) {
             self.items.set(articleid, 1);
@@ -80,8 +83,19 @@ export class OrderHandler {
                 $("#" + articleid + "-1-sub").css("visibility", "visible");
             }
         }
-        self.totalCost += Number(priceinclvat)
+        self.totalCost += Number(priceinclvat);
         $("#footerTotal").text("€" + toFixed(self.totalCost, 2));
+    }
+
+// =====================================================================================================
+    sendOrder() {
+        let self = this;
+        self.items.forEach((val, key) => {
+            self.order.set(val, key);
+        });
+        self.order.print();
+        console.log("\nItems:")
+        console.log(self.items)
     }
 
 // =====================================================================================================
