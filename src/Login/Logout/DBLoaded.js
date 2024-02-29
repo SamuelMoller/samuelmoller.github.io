@@ -1148,3 +1148,5 @@ var DB = {
         }
     ]
 };
+
+export {DB};
