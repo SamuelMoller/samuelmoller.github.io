@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ body{
+    background-image: url(../cartoon-ships.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+ }
+
+ .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 600px;
+    background-color:white;
+    border-radius: 15px;
+    padding: 20px;
+ }
+
+ h1{
+   font-family: Arial, Helvetica, sans-serif;
+   padding-bottom: 30px;
+ }
+
+form{
+   display: flex;
+   flex-direction: column;
+}
+
+label{
+   font-size: 15px;
+   font-weight: bold;
+   font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=text], select {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+ }
+
+input[type=submit] {
+   width: 100%;
+   background-color: black;
+   color: white;
+   padding: 14px 20px;
+   margin: 8px 0;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+
+  

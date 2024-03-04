@@ -37,6 +37,7 @@ function login(username, password) {
             }
     }
     }
+    return isLoggedIn
 }
 })
 
