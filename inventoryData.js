@@ -1,4 +1,4 @@
-[
+var inventoryData = [
     {
       "nr": "001",
       "name": "Guinness Draught",
@@ -13,7 +13,7 @@
       "country": "Netherlands",
       "type": "Lager",
       "price": 4.5,
-      "stock": 15
+      "stock": 3
     },
     {
       "nr": "003",

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,21 @@
         </tbody>
     </table>
 
+    <!-- Add Item Form -->
+    <div id="addItemForm">
+        <h2>Add New Item</h2>
+        <input type="text" id="addItemNr" placeholder="NR"><br>
+        <input type="text" id="addItemName" placeholder="Name"><br>
+        <input type="text" id="addItemCountry" placeholder="Country"><br>
+        <input type="text" id="addItemType" placeholder="Type"><br>
+        <input type="number" step="0.01" id="addItemPrice" placeholder="Price"><br>
+        <input type="number" id="addItemStock" placeholder="Stock"><br>
+        <button id="submitNewItem">Add Item</button>
+    </div>
+
     <script src="jquery-3.3.1.min.js"></script>
+    <script src="inventoryData.js"></script>
     <script src="inventory.js"></script>
+
 </body>
 </html>
