@@ -105,6 +105,7 @@ export class OrderHandler {
         self.totalCost = 0;
         $("#orderBasketContent").empty();
         $("#footerTotal").text("Total: €0");
+        self.displayBasket(0);
     }
 
 // =====================================================================================================
