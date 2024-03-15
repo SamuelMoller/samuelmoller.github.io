@@ -23,7 +23,8 @@ export class Inventory {
     _init(element) {
         let self = this;
         $(element).append("<div id='notification' style='display: none;'></div>");
-        $(element).append("<table id='inventory'>");
+        $(element).append("<div id='inventoryContent'>");
+        $('#inventoryContent').append("<table id='inventory'>");
         $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
         .append("<tbody></tbody>")
         .append("</table>");

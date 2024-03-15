@@ -30,8 +30,8 @@ export class OrderHandler {
     _init(element) {
         let self = this;
         /* Create a menu for ordering items. */
-        $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
-        $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
+        $(element).append("<div id='orderContent'></div>");
+        $("#orderContent").append("<div id='orderBackground'></div>");
         $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
             $.each(data, function(key, val) { // Iterate over entries
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id

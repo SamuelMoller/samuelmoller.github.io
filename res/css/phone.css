@@ -6,6 +6,7 @@
 
 :root {
     --dutchman-gray: #242424;
+    --dutchman-dark-gray: #161616;
     --dutchman-brown: #7A4605;
     --dutchman-cream: #FFFDE8;
 }
@@ -14,7 +15,6 @@
 /* || GENERAL                                                                                            */
 /* ===================================================================================================== */
 * {
-    display: flex;
     font-size: 3vmin;
     box-sizing: border-box;
     padding: 0;
@@ -43,6 +43,7 @@ body {
 /* ===================================================================================================== */
 header,
 .header-content {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -62,6 +63,7 @@ header,
         padding-right: 15vw;
     }
         #header-content-left {
+            display: inherit;
             align-items: center;
             justify-content: flex-start;
             flex: 0 0 50%;
@@ -73,6 +75,7 @@ header,
             }
 
         #header-content-right {
+            display: inherit;
             align-items: center;
             justify-content: flex-end;
             flex: 0 0 50%;
@@ -255,10 +258,16 @@ footer {
 /* ===================================================================================================== */
 /* || INVENTORY                                                                                          */
 /* ===================================================================================================== */
+
+#inventoryContent {
+    width: 95%;
+}
+
 /* Basic styles for tables */
 table {
     width: 100%; /* Table width is 100% */
     border-collapse: collapse; /* Borders collapse to a single line */
+    border: 1px solid;
     margin-bottom: 20px; /* Margin at the bottom of the table */
 }
 
@@ -271,13 +280,13 @@ th, td {
 
 /* Styles for table headers */
 th {
-    background-color: #333; /* Dark grey background */
+    background-color: var(--dutchman-gray); /* Dark grey background */
     color: white; /* White text */
 }
 
 /* Styles when hovering over table rows */
 tr:hover {
-    background-color: #f5f5f5; /* Light grey background */
+    background-color: var(--dutchman-dark-gray); /* Light grey background */
 }
 
 /* Styles for the notification at the bottom */
