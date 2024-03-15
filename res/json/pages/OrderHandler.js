@@ -10,28 +10,27 @@ import { Order } from "../struct/Order.js"; // Import Order class from Order.js
 import { toFixed } from "../Utilities.js";
 
 export class OrderHandler {
-    constructor(arg1) {
+    constructor() {
         this.items = new Map(); // Create a map to store items in the order
         this.totalCost = 0;
         this.order = new Order();
-        this.initOrderMenu(arg1); // Call buildOrderMenu() when object is created
-        this.initBasket();
     }
 
 // =====================================================================================================
-    initOrderMenu(element) {
+    initMenu(element) {
         let self = this;
         $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
         $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
         $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
             $.each(data, function(key, val) { // Iterate over entries
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
-                    self.addToBasket(val.name, val.priceinclvat, val.articleid); // Add item to order
+                    self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
                 }).appendTo("#orderBackground");
                 $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>");
                 $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
             });
         });
+        self.initBasket();
     }
 
 // =====================================================================================================
@@ -44,7 +43,7 @@ export class OrderHandler {
         $("#orderBasketHeader").append("<h2>Order</h2>");
         $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
         $("<button id='orderNow'>Order now</button>").on("click", function() {
-            self.sendOrder();
+            self.send();
         }).appendTo("#orderBasketFooter");
     }
 
@@ -64,7 +63,7 @@ export class OrderHandler {
     }
 
 // =====================================================================================================
-    addToBasket(name, priceinclvat, articleid) {
+    add(name, priceinclvat, articleid) {
         let self = this;
         if (self.items.size == 0) {
             self.displayBasket(1);
@@ -88,18 +87,28 @@ export class OrderHandler {
     }
 
 // =====================================================================================================
-    sendOrder() {
+    send() {
         let self = this;
         self.items.forEach((val, key) => {
-            self.order.set(val, key);
+            self.order.add(key, val);
         });
-        self.order.print();
-        console.log("\nItems:")
-        console.log(self.items)
+        self.order.items.clear();
+        self.items.clear();
+        self.empty();
     }
 
 // =====================================================================================================
-    listItems() {
+    empty() {
+        let self = this;
+        self.items.clear();
+        self.order.items.clear();
+        self.totalCost = 0;
+        $("#orderBasketContent").empty();
+        $("#footerTotal").text("Total: €0");
+    }
+
+// =====================================================================================================
+    _list() {   // DEPRECATED
         let self = this;
         let order = new Order();
         $("#orderNow").off("click"); // Remove click event listener (do once)

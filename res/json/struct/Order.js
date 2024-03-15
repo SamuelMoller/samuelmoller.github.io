@@ -10,7 +10,6 @@ export class Order {
         this.items = new Map(); // Create a map to store items in the order
     }
 
-
 // =====================================================================================================
     set(key, val) {
         let self = this;
@@ -40,7 +39,7 @@ export class Order {
     }
 
 // =====================================================================================================
-    print() {
+    print() {   // DEPRECATED
         let self = this;
         let total = 0;
         self.items.forEach(function(key, val) { // Iterate over items in order

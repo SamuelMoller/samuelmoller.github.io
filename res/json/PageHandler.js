@@ -8,5 +8,6 @@ $("document").ready(function() {    // When document is ready/loaded
     $("body").append("<footer></footer>");
     var header = new Header();
     var homepage = new Homepage();
-    var orderHandler = new OrderHandler("main");
+    var OH = new OrderHandler();
+    OH.initMenu("main");
 });
