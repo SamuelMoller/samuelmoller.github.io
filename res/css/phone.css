@@ -253,5 +253,55 @@ footer {
 }
 
 /* ===================================================================================================== */
-/* || ORDERING                                                                                           */
+/* || INVENTORY                                                                                          */
 /* ===================================================================================================== */
+/* Basic styles for tables */
+table {
+    width: 100%; /* Table width is 100% */
+    border-collapse: collapse; /* Borders collapse to a single line */
+    margin-bottom: 20px; /* Margin at the bottom of the table */
+}
+
+/* Basic styles for th and td inside tables */
+th, td {
+    text-align: left; /* Text aligned to the left */
+    padding: 10px; /* Padding */
+    border-bottom: 1px solid #ddd; /* Bottom border */
+}
+
+/* Styles for table headers */
+th {
+    background-color: #333; /* Dark grey background */
+    color: white; /* White text */
+}
+
+/* Styles when hovering over table rows */
+tr:hover {
+    background-color: #f5f5f5; /* Light grey background */
+}
+
+/* Styles for the notification at the bottom */
+#notification {
+    color: red; /* Red text */
+    margin-bottom: 20px; /* Margin at the bottom */
+}
+
+/* Basic styles for buttons */
+button.remove-item {
+    background-color: #e74c3c; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Cursor becomes a hand icon */
+    transition: background-color 0.3s; /* Transition effect for background color */
+}
+
+/* Styles for buttons on hover */
+button.remove-item:hover {
+    background-color: #c0392b; /* Dark red background */
+}
+
+/* Styles for rows indicating low stock */
+.low-stock {
+    background-color: #fde3e3; /* Pale red background */
+}
