@@ -14,10 +14,10 @@ const password = document.getElementById("password").value
 const loggedIn = login(username, password)
 
 if (isLoggedIn == true && credentials == 0) {
-    window.location.href = "staff page"
+    window.location.href = "../Bartender_page/Bartender.html"
 }
 if (isLoggedIn == true && credentials == 3) {
-    window.location.href = "user page"
+    window.location.href = "../VIP_page/VIP.html"
 }
 if (isLoggedIn == false) {
     alert("no account associated with this username and/or password")
