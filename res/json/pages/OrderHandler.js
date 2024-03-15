@@ -18,6 +18,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     initMenu(element) {
+        /* Create a menu for ordering items. */
         let self = this;
         $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
         $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
@@ -26,7 +27,7 @@ export class OrderHandler {
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
                     self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
                 }).appendTo("#orderBackground");
-                $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>");
+                $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
                 $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
             });
         });
@@ -35,6 +36,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     initBasket() {
+        /* Create a basket for the order. */
         let self = this;
         $("#orderContent").append("<div id='orderBasket'></div>");
         $("#orderBasket").append("<div id='orderBasketHeader'></div>");
@@ -49,6 +51,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     displayBasket(bool) {
+        /* Display or hide the basket. */
         if (bool) {
             $("#orderContent").css("width", "80%");
             $("#orderContent").css("left", "-7.5%");
@@ -64,6 +67,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     add(name, priceinclvat, articleid) {
+        /* Add an item to the order. */
         let self = this;
         if (self.items.size == 0) {
             self.displayBasket(1);
@@ -88,10 +92,12 @@ export class OrderHandler {
 
 // =====================================================================================================
     send() {
+        /* Send the order. */
         let self = this;
         self.items.forEach((val, key) => {
             self.order.add(key, val);
         });
+        console.log(self.order.items); // Debug
         self.order.items.clear();
         self.items.clear();
         self.empty();
@@ -99,6 +105,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     empty() {
+        /* Empty the order. */
         let self = this;
         self.items.clear();
         self.order.items.clear();
@@ -110,6 +117,7 @@ export class OrderHandler {
 
 // =====================================================================================================
     _list() {   // DEPRECATED
+        /* Prototype initMenu() function. */
         let self = this;
         let order = new Order();
         $("#orderNow").off("click"); // Remove click event listener (do once)

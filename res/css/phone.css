@@ -1,6 +1,16 @@
 /* this is an ultrawide stylesheet in disguise */
 
 /* ===================================================================================================== */
+/* || COLORS                                                                                             */
+/* ===================================================================================================== */
+
+:root {
+    --dutchman-gray: #242424;
+    --dutchman-brown: #7A4605;
+    --dutchman-cream: #FFFDE8;
+}
+
+/* ===================================================================================================== */
 /* || GENERAL                                                                                            */
 /* ===================================================================================================== */
 * {
@@ -20,20 +30,12 @@ body {
     flex-flow: column nowrap;
     align-items: center;
     background-size: cover;
-    background-color: #242424;
+    background-color: var(--dutchman-gray);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
     color: white;
     width: 100%;
     height: 100%;
-}
-
-/* ===================================================================================================== */
-/* || COLORS                                                                                             */
-/* ===================================================================================================== */
-
-:root {
-    --dutchman-brown: #7A4605;
 }
 
 /* ===================================================================================================== */
@@ -126,7 +128,7 @@ main {
     flex-flow: row wrap;
     top: 0;
     left: 0;
-    background-color: rgb(255, 253, 232);
+    background-color: var(--dutchman-cream);
     width: 100%;
     height: 20vw;
     border-radius: 0.3em;
@@ -146,7 +148,7 @@ main {
     height: 50%;
     cursor: default;
     user-select: none;
-    background-color: blue;
+    background-color: var(--dutchman-cream);
     border-radius: 0.3em;
 }
     .beverageItemContainer img {
