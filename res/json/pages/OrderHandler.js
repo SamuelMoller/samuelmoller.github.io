@@ -10,16 +10,26 @@ import { Order } from "../struct/Order.js"; // Import Order class from Order.js
 import { toFixed } from "../Utilities.js";
 
 export class OrderHandler {
-    constructor() {
+    constructor(arg1, arg2) {
+        this.arg1 = arg1;
+        this.arg2 = arg2;
         this.items = new Map(); // Create a map to store items in the order
         this.totalCost = 0;
         this.order = new Order();
+        if (arg2) {
+            this.init();
+        }
     }
 
 // =====================================================================================================
-    initMenu(element) {
-        /* Create a menu for ordering items. */
+    init() {
         let self = this;
+        self._init(self.arg1);
+    }
+
+    _init(element) {
+        let self = this;
+        /* Create a menu for ordering items. */
         $(element).append("<div id='orderContent'></div>"); // Append div element to 'content'
         $("#orderContent").append("<div id='orderBackground'></div>"); // Append button element to body
         $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
@@ -33,6 +43,7 @@ export class OrderHandler {
         });
         self.initBasket();
     }
+    
 
 // =====================================================================================================
     initBasket() {

@@ -57,7 +57,7 @@
         "priceperlitre": 13.38,
         "introduced": "1980",
         "finaldelivery": "2023-12-31",
-        "category": "Pale Ale",
+        "category": "American Pale Ale",
         "packaging": "Bottle",
         "captype": "Cork",
         "country": "United States",
