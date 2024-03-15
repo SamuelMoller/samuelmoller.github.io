@@ -47,12 +47,12 @@ export class Inventory {
         });
 
         $(".remove-item").on('click', function() {
-            var nr = $(this).data('nr');
+            var nr = $(this).attr('data-nr');
             self.removeItem(nr);
         });
 
         $('.edit-item').on('click', function() {
-            var nr = $(this).data('nr');
+            var nr = $(this).attr('data-nr');
             var newStock = prompt("Please enter the new stock quantity for this item:");
             if (newStock !== null) {
                 self.modifyItemStock(nr, parseInt(newStock, 10) - self.inventoryData.find(item => item.nr === nr).stock);
