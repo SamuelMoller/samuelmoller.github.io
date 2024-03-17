@@ -74,6 +74,11 @@ header,
             flex: 0 0 50%;
             gap: 3vmin;
         }
+            #header-content-left img,
+            #header-content-left h1 {
+                cursor: pointer;
+            }
+            
             #header-content-left img {
                 width: 7vmin;
                 height: 7vmin;
