@@ -1,7 +1,8 @@
 // =====================================================================================================
 // Samuel Möller, 2024
-//
 // =====================================================================================================
+
+import * as PH from '../PageHandler.js';
 
 export class Header {
     constructor() {
@@ -16,8 +17,12 @@ export class Header {
         $(".header-content").append("<div id='header-content-right'></div>");
         $("#header-content-left").append("<img src='res/img/logo-small.png' >");
         $("#header-content-left").append("<h1>The Old Sea Turtle</h1>");
-        $("#header-content-right").append("<p>Book a table</p>");
-        $("#header-content-right").append("<p>Apply for VIP</p>");
-        $("#header-content-right").append("<p>Login</p>");
+        $("#header-content-right").append("<p id='headerBooking'>Book a table</p>");
+        $("#header-content-right").append("<p id='headerApply'>Apply for VIP</p>");
+        $("#header-content-right").append("<p id='headerLogin'>Login</p>");
+
+        $("#headerLogin").on("click", function() {
+            PH.page("login");
+        });
     }
 }

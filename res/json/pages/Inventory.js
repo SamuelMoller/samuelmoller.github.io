@@ -4,6 +4,8 @@
 // Integration & polish: Samuel Möller
 // =====================================================================================================
 
+import * as PH from '../PageHandler.js';
+
 export class Inventory {
     constructor(arg1, arg2) {
         this.arg1 = arg1;
@@ -19,28 +21,30 @@ export class Inventory {
         $.getJSON("res/json/DB/Stock.js")
         .done((data) => {  // Use an arrow function for reasons
             self.inventoryData = data;
-            self._init(self.arg1);
+            PH.clear();
+            _init(self.arg1);
         })
         .fail((jqXHR, textStatus, error) => {
             console.log("getJSON failed, status: " + textStatus + ", error: " + error);
         });
+
+        function _init(element) {
+            $(element).append("<div id='notification' style='display: none;'></div>");
+            $(element).append("<div id='inventoryContent'>");
+            $('#inventoryContent').append("<table id='inventory'>");
+            $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
+            .append("<tbody></tbody>")
+            .append("</table>");
+    
+            $(element).append("<div id='addItemForm'></div>");
+            $("#addItemForm").append("<h2>Add new item</h2>");
+            $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
+            $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
+            self.display();
+        }
     }
 
-    _init(element) {
-        let self = this;
-        $(element).append("<div id='notification' style='display: none;'></div>");
-        $(element).append("<div id='inventoryContent'>");
-        $('#inventoryContent').append("<table id='inventory'>");
-        $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
-        .append("<tbody></tbody>")
-        .append("</table>");
-
-        $(element).append("<div id='addItemForm'></div>");
-        $("#addItemForm").append("<h2>Add new item</h2>");
-        $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
-        $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
-        self.display();
-    }
+    
 
     display() {
         // Display inventory

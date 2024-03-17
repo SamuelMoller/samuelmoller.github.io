@@ -4,6 +4,7 @@
 // Integration & polish: Samuel Möller
 // =====================================================================================================
 
+import * as PH from './PageHandler.js';
 import { DB } from './DB/Users.js';
 
 export class Authentication {
@@ -18,24 +19,25 @@ export class Authentication {
 // =====================================================================================================
     init() {
         let self = this;
-        self._init(self.arg1);
+        PH.clear();
+        _init(self.arg1);
+
+        function _init(element) {
+            $(element).append("<div class='container'>");
+            $(".container").append("<h1 id='login-header'>Login</h1>");
+            $(".container").append("<form onsubmit='return false'>");
+            $("form").append("<label for='username'>Username:</label>");
+            $("form").append("<input type='text' id='username' name='username'><br><br>");
+            $("form").append("<label for='password'>Password:</label>");
+            $("form").append("<input type='text' id='password' name='password'><br><br>");
+            $("form").append("<input type='submit' value='Submit'>");
+            $(":submit").on("click", function() {
+                self.login();
+            });
+        }
     }
 
-    _init(element) {
-        let self = this
-        $(element).append("<div class='container'>")
-        $(".container").append("<h1 id='login-header'>Login</h1>")
-        $(".container").append("<form onsubmit='return false'>")
-        $("form").append("<label for='username'>Username:</label>")
-        $("form").append("<input type='text' id='username' name='username'><br><br>")
-        $("form").append("<label for='password'>Password:</label>")
-        $("form").append("<input type='text' id='password' name='password'><br><br>")
-        $("form").append("<input type='submit' value='Submit'>")
-        $(":submit").on("click", function(e) {
-            // console.log(DB["users"].filter(function(DB) { return DB.username == "jorass"}))
-            self.login()
-        });
-    }
+    
 
 // =====================================================================================================
     login() {
@@ -49,18 +51,21 @@ export class Authentication {
         4: Guest (unused)
         */
 
-        const form = $("form")
-        const username = $("#username").val()
-        const password = $("#password").val()
-
+        const username = $("#username").val();
+        const password = $("#password").val();
+        
         switch (parseInt(_login(username, password))) {
             case 0: // Manager
+                PH.page("inventory");
                 break;
             case 1: // Bartender
+                PH.page("inventory");
                 break;
             case 2: // Waiting staff
+                PH.page("order");
                 break;
             case 3: // VIP
+                PH.page("order");
                 break;
             default:
                 alert("No account associated with this username and/or password");

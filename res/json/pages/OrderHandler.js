@@ -6,7 +6,8 @@
 // method that prints all beers from the JSON database file.
 // =====================================================================================================
 
-import { Order } from "../struct/Order.js"; // Import Order class from Order.js
+import * as PH from '../PageHandler.js';
+import { Order } from "../struct/Order.js";
 import { toFixed } from "../Utilities.js";
 
 export class OrderHandler {
@@ -24,10 +25,10 @@ export class OrderHandler {
 // =====================================================================================================
     init() {
         let self = this;
+        PH.clear();
         _init(self.arg1);
         
         function _init(element) {
-            let self = this;
             /* Create a menu for ordering items. */
             $(element).append("<div id='orderContent'></div>");
             $("#orderContent").append("<div id='orderBackground'></div>");
