@@ -27,14 +27,15 @@ export class Authentication {
         function _init(element) {
             $(element).append("<div class='container'>");
             $(".container").append("<h1 id='login-header'>Login</h1>");
-            $(".container").append("<form onsubmit='return false'>");
+            $(".container").append("<form id='loginForm' method=post>");
             $("form").append("<label for='username'>Username:</label>");
             $("form").append("<input type='text' id='username' name='username'><br><br>");
             $("form").append("<label for='password'>Password:</label>");
             $("form").append("<input type='text' id='password' name='password'><br><br>");
             $("form").append("<input type='submit' value='Submit'>");
-            $(":submit").on("click", function() {
-                self.login();
+            $("#loginForm").on("submit", function(event) {
+                event.preventDefault();  // Prevent the form from being submitted normally (to prevent credentials in URL)
+                self.login();  // Call the login function manually
             });
         }
     }
