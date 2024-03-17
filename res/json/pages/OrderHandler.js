@@ -24,25 +24,26 @@ export class OrderHandler {
 // =====================================================================================================
     init() {
         let self = this;
-        self._init(self.arg1);
+        _init(self.arg1);
+        
+        function _init(element) {
+            let self = this;
+            /* Create a menu for ordering items. */
+            $(element).append("<div id='orderContent'></div>");
+            $("#orderContent").append("<div id='orderBackground'></div>");
+            $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
+                $.each(data, function(key, val) { // Iterate over entries
+                    $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
+                        self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
+                    }).appendTo("#orderBackground");
+                    $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
+                    $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
+                });
+            });
+            self.initBasket();
+        }
     }
 
-    _init(element) {
-        let self = this;
-        /* Create a menu for ordering items. */
-        $(element).append("<div id='orderContent'></div>");
-        $("#orderContent").append("<div id='orderBackground'></div>");
-        $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
-            $.each(data, function(key, val) { // Iterate over entries
-                $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
-                    self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
-                }).appendTo("#orderBackground");
-                $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
-                $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
-            });
-        });
-        self.initBasket();
-    }
     
 
 // =====================================================================================================

@@ -1,3 +1,9 @@
+// =====================================================================================================
+// Design & implementation: Yixin Huang
+// Styling: Yixin Huang
+// Integration & polish: Samuel Möller
+// =====================================================================================================
+
 export class Inventory {
     constructor(arg1, arg2) {
         this.arg1 = arg1;
@@ -11,7 +17,7 @@ export class Inventory {
     init() {
         let self = this;
         $.getJSON("res/json/DB/Stock.js")
-        .done((data) => {  // Use an arrow function
+        .done((data) => {  // Use an arrow function for reasons
             self.inventoryData = data;
             self._init(self.arg1);
         })
