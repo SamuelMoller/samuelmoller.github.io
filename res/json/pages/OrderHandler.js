@@ -8,7 +8,7 @@
 
 import * as PH from '../PageHandler.js';
 import { Order } from "../struct/Order.js";
-import { toFixed } from "../Utilities.js";
+import * as util from "../Utilities.js";
 
 export class OrderHandler {
     constructor(arg1, arg2) {
@@ -34,14 +34,16 @@ export class OrderHandler {
             $("#orderContent").append("<div id='orderBackground'></div>");
             $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
                 $.each(data, function(key, val) { // Iterate over entries
-                    $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer>').on("click", function() { // Create div element with click event listener and unique id
+                    $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer draggable=true>').on("click", function() { // Create div element with click event listener and unique id
                         self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
-                    }).appendTo("#orderBackground");
+                    }).on("dragstart", function(e) {
+                        util.order_drag(e, val.name, val.priceinclvat, val.articleid);
+                }).appendTo("#orderBackground");
                     $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
                     $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
                 });
+                self.initBasket();
             });
-            self.initBasket();
         }
     }
 
@@ -52,6 +54,9 @@ export class OrderHandler {
         /* Create a basket for the order. */
         let self = this;
         $("#orderContent").append("<div id='orderBasket'></div>");
+        $("#orderBasket").on("drop", function(e) {
+            util.order_drop(e, self);
+        }).on("dragover", util.allowDrop);
         $("#orderBasket").append("<div id='orderBasketHeader'></div>");
         $("#orderBasket").append("<div id='orderBasketContent'></div>");
         $("#orderBasket").append("<div id='orderBasketFooter'></div>");
@@ -94,13 +99,13 @@ export class OrderHandler {
         } else {
             self.items.set(articleid, self.items.get(articleid) + 1);
             $("#" + articleid + "-1-sub").text(self.items.get(articleid) + " * €" + priceinclvat + "/each");
-            $("#" + articleid + "-2").text("€" + toFixed(self.items.get(articleid) * priceinclvat, 2));
+            $("#" + articleid + "-2").text("€" + util.toFixed(self.items.get(articleid) * priceinclvat, 2));
             if ( ($("#" + articleid + "-1-sub").css("visibility")) == "hidden" ) {
                 $("#" + articleid + "-1-sub").css("visibility", "visible");
             }
         }
         self.totalCost += Number(priceinclvat);
-        $("#footerTotal").text("€" + toFixed(self.totalCost, 2));
+        $("#footerTotal").text("€" + util.toFixed(self.totalCost, 2));
     }
 
 // =====================================================================================================

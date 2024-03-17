@@ -2,6 +2,8 @@
 // Design & implementation: Ayo Eyesan
 // Styling: Ayo Eyesan
 // Integration & polish: Samuel Möller
+//
+// TODO: Persisting login state
 // =====================================================================================================
 
 import * as PH from './PageHandler.js';

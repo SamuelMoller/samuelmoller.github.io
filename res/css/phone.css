@@ -21,6 +21,11 @@
     margin: 0;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 title {
     display: none;
 }
@@ -151,9 +156,14 @@ main {
     height: 50%;
     cursor: default;
     user-select: none;
-    background-color: var(--dutchman-cream);
+    background-color: black;
     border-radius: 0.3em;
 }
+    .beverageItemContainer img, 
+    .beverageItemContainer p {
+        pointer-events: none;
+    }
+
     .beverageItemContainer img {
         position: absolute;
         top: 0;
