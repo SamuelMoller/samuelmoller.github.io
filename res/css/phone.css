@@ -1,0 +1,316 @@
+/* this is an ultrawide stylesheet in disguise */
+
+/* ===================================================================================================== */
+/* || COLORS                                                                                             */
+/* ===================================================================================================== */
+
+:root {
+    --dutchman-gray: #242424;
+    --dutchman-dark-gray: #161616;
+    --dutchman-brown: #7A4605;
+    --dutchman-cream: #FFFDE8;
+}
+
+/* ===================================================================================================== */
+/* || GENERAL                                                                                            */
+/* ===================================================================================================== */
+* {
+    font-size: 3vmin;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+title {
+    display: none;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background-size: cover;
+    background-color: var(--dutchman-gray);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
+    color: white;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================================================================================================== */
+/* || HEADER                                                                                             */
+/* ===================================================================================================== */
+header,
+.header-content {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    width: 100%;
+    max-height: 10%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+    .header-content {
+        justify-content: start;
+        padding-left: 15vw;
+        padding-right: 15vw;
+    }
+        #header-content-left {
+            display: inherit;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-left img {
+                width: 7vmin;
+                height: 7vmin;
+            }
+
+        #header-content-right {
+            display: inherit;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-right p {
+                font-size: 2vmin;
+            }
+
+
+/* ===================================================================================================== */
+/* || MAIN CONTENT                                                                                       */
+/* ===================================================================================================== */
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* ===================================================================================================== */
+/* || HOMEPAGE                                                                                           */
+/* ===================================================================================================== */
+#homepageContent,
+#hero-img {
+    width: 100%;
+    height: 30vmin;
+    margin-bottom: 2vmin;
+}
+
+#hero-img {
+    object-fit: cover;
+    margin-bottom: 2vmin;
+}
+
+
+/* ===================================================================================================== */
+/* || ORDERING                                                                                           */
+/* ===================================================================================================== */
+#orderContent {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 95%;
+    height: auto;
+}
+
+#orderBackground {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    top: 0;
+    left: 0;
+    background-color: var(--dutchman-cream);
+    width: 100%;
+    height: 20vw;
+    border-radius: 0.3em;
+    gap: 2vmin;
+    padding: 1vmin;
+}
+
+.beverageItemContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: 10%;
+    height: 50%;
+    cursor: default;
+    user-select: none;
+    background-color: var(--dutchman-cream);
+    border-radius: 0.3em;
+}
+    .beverageItemContainer img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.3em;
+    }
+    .beverageItemContainer p {
+        font-size: 1.3vw;
+        z-index: 10;
+        font-family: 'Arial Black', 'Tahoma', Arial, sans-serif;
+        word-spacing: 100vw; /* Force line break after every word */
+        padding-left: 0.5vw;
+        text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.75);
+    }
+
+/* ===================================================================================================== */
+/* || BASKET                                                                                             */
+/* ===================================================================================================== */
+#orderBasket {
+    visibility: hidden;
+    position: absolute;
+    top: 5%;
+    left: 100%;
+    margin-left: 1.5%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: start;
+    width: 15vw;
+    height: 90%;
+}
+    #orderBasket h2{
+        font-size: 2vmin;
+    }
+#orderBasketHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10%;
+    background-color: var(--dutchman-brown);
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+}
+#orderBasketContent {
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+}
+#orderBasketFooter {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1%;
+    width: 100%;
+    height: 10%;
+    background-color: var(--dutchman-brown);
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+}
+    #orderBasketFooter button,
+    #orderBasketFooter h2 {
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        font-size: 2vmin;
+        flex: 0 0 40%; /* HACK: This is a temporary fix */
+    }
+.basketItem {
+    flex-flow: row nowrap;
+    gap: 0.4vw;
+    color: black;
+    text-shadow: none;
+    white-space: nowrap;
+    margin-bottom: 0.1vw;
+    margin-top: 0.1vw;
+    margin-left: 0.4vw;
+    margin-right: 0.4vw;
+}
+    .basketItem p {
+        font-size: 0.8vw;
+    }
+/* ===================================================================================================== */
+/* || FOOTER                                                                                             */
+/* ===================================================================================================== */
+footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 2vmin;
+}
+
+/* ===================================================================================================== */
+/* || INVENTORY                                                                                          */
+/* ===================================================================================================== */
+
+#inventoryContent {
+    width: 95%;
+}
+
+/* Basic styles for tables */
+table {
+    width: 100%; /* Table width is 100% */
+    border-collapse: collapse; /* Borders collapse to a single line */
+    border: 1px solid;
+    margin-bottom: 20px; /* Margin at the bottom of the table */
+}
+
+/* Basic styles for th and td inside tables */
+th, td {
+    text-align: left; /* Text aligned to the left */
+    padding: 10px; /* Padding */
+    border-bottom: 1px solid #ddd; /* Bottom border */
+}
+
+/* Styles for table headers */
+th {
+    background-color: var(--dutchman-gray); /* Dark grey background */
+    color: white; /* White text */
+}
+
+/* Styles when hovering over table rows */
+tr:hover {
+    background-color: var(--dutchman-dark-gray); /* Light grey background */
+}
+
+/* Styles for the notification at the bottom */
+#notification {
+    color: red; /* Red text */
+    margin-bottom: 20px; /* Margin at the bottom */
+}
+
+/* Basic styles for buttons */
+button.remove-item {
+    background-color: #e74c3c; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Cursor becomes a hand icon */
+    transition: background-color 0.3s; /* Transition effect for background color */
+}
+
+/* Styles for buttons on hover */
+button.remove-item:hover {
+    background-color: #c0392b; /* Dark red background */
+}
+
+/* Styles for rows indicating low stock */
+.low-stock {
+    background-color: #fde3e3; /* Pale red background */
+}
