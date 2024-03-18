@@ -1,10 +1,12 @@
 import * as PH from "./PageHandler.js";
 
+// =====================================================================================================
 export function toFixed(num, fixed) {
     var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     return num.toString().match(re)[0];
 }
 
+// =====================================================================================================
 export function allowDrop(e) {
     e.preventDefault();
 }
@@ -22,12 +24,14 @@ export function order_drop(e, orderHandler) {
     orderHandler.add(name, price, id);
 }
 
+// =====================================================================================================
 export function idleTimer(lim, page) {
     let time = 0;
     let events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
     $.each(events, function(i, event) {
         $(document).on(event, function() {
             time = 0;
+            animateHero(false, "#hero", "#hero-img");
         });
     });
     let interval = setInterval(function() {
@@ -35,7 +39,16 @@ export function idleTimer(lim, page) {
         if (time > lim) {
             // clearInterval(interval);
             time = 0;
-            PH.page(page);
+            // PH.page(page);
+            animateHero(true, "#hero", "#hero-img");
         }
     }, 1000);
+}
+
+// =====================================================================================================
+export function animateHero(b, e1, e2) {
+    $(e1 + ", " + e2).css({
+            transition: "height 1s ease-in-out",
+            height: b ? "100vmin" : "30vmin"
+    });
 }
