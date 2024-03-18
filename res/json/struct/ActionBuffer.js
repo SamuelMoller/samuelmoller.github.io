@@ -106,6 +106,12 @@ export function redo(type, ref) {
             ubuffer['order'].push(action[2]);
             break;
         case "inventory":
+            let nr = action[0];
+            let amount = action[1];
+            let index = ref.findIndex(item => item.nr === nr);
+            if (index > -1) {
+                ref[index].stock += amount;
+            }
             ubuffer['inventory'].push(action);
             break;
         default:

@@ -38,14 +38,12 @@ export class Inventory {
             .append("</table>");
 
             $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
-                self.inventoryData = buffer.undo("inventory", self.inventoryData)
+                self.inventoryData = buffer.undo("inventory", self.inventoryData);
                 self.display();
-                console.log(self.inventoryData); // DEBUG
             }).appendTo(element);
             $("<button id='inventoryRedo'>Redo</button>").on("click", function() {
-                self.inventoryData = buffer.redo("inventory", self.inventoryData)
+                self.inventoryData = buffer.redo("inventory", self.inventoryData);
                 self.display();
-                console.log(self.inventoryData); // DEBUG
             }).appendTo(element);
     
             $(element).append("<div id='addItemForm'></div>");

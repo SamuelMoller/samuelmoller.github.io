@@ -9,6 +9,7 @@
     --dutchman-dark-gray: #161616;
     --dutchman-brown: #7A4605;
     --dutchman-cream: #FFFDE8;
+    --dutchman-dark-red: #6e0000;
 }
 
 /* ===================================================================================================== */
@@ -332,7 +333,7 @@ button.remove-item:hover {
 
 /* Styles for rows indicating low stock */
 .low-stock {
-    background-color: #fde3e3; /* Pale red background */
+    background-color: var(--dutchman-dark-red); /* Pale red background */
 }
 
 /* ===================================================================================================== */
