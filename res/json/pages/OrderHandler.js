@@ -7,8 +7,9 @@
 // =====================================================================================================
 
 import * as PH from '../PageHandler.js';
-import { Order } from "../struct/Order.js";
 import * as util from "../Utilities.js";
+import { Order } from "../struct/Order.js";
+import * as buffer from "../struct/ActionBuffer.js";
 
 export class OrderHandler {
     constructor(arg1, arg2) {
@@ -63,6 +64,13 @@ export class OrderHandler {
         $("<button id='orderNow'>Order now</button>").on("click", function() {
             self.send();
         }).appendTo("#orderBasketFooter");
+        $("<button id='basketUndo'>Undo</button>").on("click", function() {
+            self.items = buffer.undo("order", self.items)
+        }).appendTo("#orderBasketHeader");
+        $("<button id='basketRedo'>Redo</button>").on("click", function() {
+            self.items = buffer.redo("order", self.items)
+        }).appendTo("#orderBasketHeader");
+        self.displayBasket(1); // HACK: Dodging my CSS responsibilities
     }
 
 // =====================================================================================================
@@ -104,6 +112,7 @@ export class OrderHandler {
         }
         self.totalCost += Number(priceinclvat);
         $("#footerTotal").text("€" + util.toFixed(self.totalCost, 2));
+        buffer.add("order", articleid); // Add to UNDO-REDO buffer
     }
 
 // =====================================================================================================
@@ -128,7 +137,7 @@ export class OrderHandler {
         self.totalCost = 0;
         $("#orderBasketContent").empty();
         $("#footerTotal").text("Total: €0");
-        self.displayBasket(0);
+        // self.displayBasket(0); // HACK
     }
 
 // =====================================================================================================

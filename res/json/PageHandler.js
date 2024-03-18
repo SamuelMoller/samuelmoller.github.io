@@ -26,11 +26,11 @@ export function clear() {
 }
 
 $("document").ready(function() {    // When document is ready/loaded
-    util.idleTimer(60, "login");
+    // util.idleTimer(60, "login");
     $("body").append("<header></header>");
     const header = new Header();
     const hero = new Hero("body", 1);
     $("body").append("<main></main>");
     $("body").append("<footer></footer>");
-    page("login")
+    page("order")
 });
