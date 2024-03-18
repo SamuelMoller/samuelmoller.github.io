@@ -25,13 +25,13 @@ export class Authentication {
         _init(self.arg1);
 
         function _init(element) {
-            $(element).append("<div class='container'>");
-            $(".container").append("<h1 id='login-header'>Login</h1>");
-            $(".container").append("<form id='loginForm' method=post>");
+            $(element).append("<div class='loginContainer'>");
+            $(".loginContainer").append("<h1 id='login-header'>Login</h1>");
+            $(".loginContainer").append("<form id='loginForm' method=post>");
             $("form").append("<label for='username'>Username:</label>");
-            $("form").append("<input type='text' id='username' name='username'><br><br>");
+            $("form").append("<input type='text' id='username' name='username'>");
             $("form").append("<label for='password'>Password:</label>");
-            $("form").append("<input type='password' id='password' name='password'><br><br>");
+            $("form").append("<input type='password' id='password' name='password'>");
             $("form").append("<input type='submit' value='Submit'>");
             $("#loginForm").on("submit", function(event) {
                 event.preventDefault();  // Prevent the form from being submitted normally (to prevent credentials in URL)

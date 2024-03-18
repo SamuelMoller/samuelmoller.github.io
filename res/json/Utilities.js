@@ -27,7 +27,7 @@ export function order_drop(e, orderHandler) {
 // =====================================================================================================
 export function idleTimer(lim, page) {
     let time = 0;
-    let events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    let events = ['mousedown', 'keypress', 'scroll', 'touchstart'];
     $.each(events, function(i, event) {
         $(document).on(event, function() {
             time = 0;
@@ -37,18 +37,18 @@ export function idleTimer(lim, page) {
     let interval = setInterval(function() {
         time++;
         if (time > lim) {
-            // clearInterval(interval);
             time = 0;
-            // PH.page(page);
-            animateHero(true, "#hero", "#hero-img");
+            // PH.page(page); // Additional functionality to redirect to a new page on idle timeout.
+            animateHero(true, "#hero", "#hero-img"); // Animate the hero image to cover page.
         }
     }, 1000);
 }
 
-// =====================================================================================================
 export function animateHero(b, e1, e2) {
     $(e1 + ", " + e2).css({
             transition: "height 1s ease-in-out",
-            height: b ? "100vmin" : "30vmin"
+            height: b ? "100vmin" : "30vmin" // I love tertiary operators, man. Coolest thing in this project.
     });
 }
+
+// =====================================================================================================
