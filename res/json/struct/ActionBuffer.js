@@ -40,7 +40,6 @@ export function getRedo(type) {
 
 // =====================================================================================================
 export function add(type, action) {
-    console.log(action); // DEBUG
     switch (type) {
         case "order": // It's only possible to add a single item to an order, so the action is the item id
             ubuffer['order'].push(action);
@@ -54,6 +53,12 @@ export function add(type, action) {
     if (ubuffer[type].length > 50) { // Limit buffer size to 50
         ubuffer[type].shift();
     }
+    rbuffer[type] = [];
+}
+
+// =====================================================================================================
+export function clear(type) {
+    ubuffer[type] = [];
     rbuffer[type] = [];
 }
 

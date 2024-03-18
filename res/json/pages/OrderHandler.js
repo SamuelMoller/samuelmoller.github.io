@@ -18,6 +18,7 @@ export class OrderHandler {
         this.items = new Map(); // Create a map to store items in the order
         this.totalCost = 0;
         this.order = new Order();
+        this.data = [];
         if (arg2) {
             this.init();
         }
@@ -26,55 +27,82 @@ export class OrderHandler {
 // =====================================================================================================
     init() {
         let self = this;
-        PH.clear();
-        _init(self.arg1);
+        $.getJSON("res/json/DB/Beverages.js")
+        .done((data) => {  // Use an arrow function for reasons
+            self.data = data;
+            PH.clear();
+            _init(self.arg1);
+        })
+        .fail((jqXHR, textStatus, error) => {
+            console.log("getJSON failed, status: " + textStatus + ", error: " + error);
+        });
         
         function _init(element) {
-            /* Create a menu for ordering items. */
+            /* Menu */
             $(element).append("<div id='orderContent'></div>");
             $("#orderContent").append("<div id='orderBackground'></div>");
-            $.getJSON("res/json/DB/Beverages.js", function(data) { // Load JSON database
-                $.each(data, function(key, val) { // Iterate over entries
-                    $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer draggable=true>').on("click", function() { // Create div element with click event listener and unique id
-                        self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
-                    }).on("dragstart", function(e) {
-                        util.order_drag(e, val.name, val.priceinclvat, val.articleid);
-                }).appendTo("#orderBackground");
-                    $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
-                    $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
-                });
-                self.initBasket();
+            $.each(self.data, function(key, val) { // Iterate over entries
+                $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer draggable=true>').on("click", function() { // Create div element with click event listener and unique id
+                    self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
+                }).on("dragstart", function(e) {
+                    util.order_drag(e, val.name, val.priceinclvat, val.articleid);
+            }).appendTo("#orderBackground");
+                $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
+                $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
             });
+
+            /* Basket */
+            $("#orderContent").append("<div id='orderBasket'></div>");
+            $("#orderBasket").on("drop", function(e) {
+                util.order_drop(e, self);
+            }).on("dragover", util.allowDrop);
+            $("#orderBasket").append("<div id='orderBasketHeader'></div>");
+            $("#orderBasket").append("<div id='orderBasketContent'></div>");
+            $("#orderBasket").append("<div id='orderBasketFooter'></div>");
+            $("#orderBasketHeader").append("<h2>Order</h2>");
+            $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
+            $("<button id='orderNow'>Order now</button>").on("click", function() {
+                self.send();
+            }).appendTo("#orderBasketFooter");
+            $("<button id='basketUndo'>Undo</button>").on("click", function() {
+                self.items = buffer.undo("order", self.items)
+                self.update();
+            }).appendTo("#orderBasketHeader");
+            $("<button id='basketRedo'>Redo</button>").on("click", function() {
+                self.items = buffer.redo("order", self.items)
+                self.update();
+            }).appendTo("#orderBasketHeader");
+            self.displayBasket(1); // HACK: Dodging my CSS responsibilities
         }
     }
 
 // =====================================================================================================
-    initBasket() {
-        /* Create a basket for the order. */
+    update() {
+        /* Update the order. */
         let self = this;
-        $("#orderContent").append("<div id='orderBasket'></div>");
-        $("#orderBasket").on("drop", function(e) {
-            util.order_drop(e, self);
-        }).on("dragover", util.allowDrop);
-        $("#orderBasket").append("<div id='orderBasketHeader'></div>");
-        $("#orderBasket").append("<div id='orderBasketContent'></div>");
-        $("#orderBasket").append("<div id='orderBasketFooter'></div>");
-        $("#orderBasketHeader").append("<h2>Order</h2>");
-        $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
-        $("<button id='orderNow'>Order now</button>").on("click", function() {
-            self.send();
-        }).appendTo("#orderBasketFooter");
-        $("<button id='basketUndo'>Undo</button>").on("click", function() {
-            self.items = buffer.undo("order", self.items)
-            console.log(self.items); // DEBUG
-        }).appendTo("#orderBasketHeader");
-        $("<button id='basketRedo'>Redo</button>").on("click", function() {
-            self.items = buffer.redo("order", self.items)
-            console.log(self.items); // DEBUG
-        }).appendTo("#orderBasketHeader");
-        self.displayBasket(1); // HACK: Dodging my CSS responsibilities
-        
+        let total = 0;
+
+        $("#orderBasketContent").empty();
+        self.items.forEach((val, key) => {
+            let name = self.data.find(item => item.articleid === key).name;
+            let price = self.data.find(item => item.articleid === key).priceinclvat;
+            total += price * val;
+
+            $("#orderBasketContent").append("<div id=basketItem" + key + " class='basketItem'></div>");
+            $("#basketItem" + key).append("<p id='" + key + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
+            $("#basketItem" + key).append("<p id='" + key + "-2' style='margin-left: auto;'>€" + util.toFixed(price * val, 2) + "</p>");
+
+            $("#" + key + "-1").append("<p id='" + key + "-1-sub' style='visibility: hidden; font-size: 0.5vw; margin-left: 1em;'>" + val + " * €" + price + "/each</p>");
+            if (val > 1) {
+                if ( ($("#" + key + "-1-sub").css("visibility")) == "hidden" ) {
+                        $("#" + key + "-1-sub").css("visibility", "visible");
+                }
+            }
+        });
+        $("#footerTotal").text("€" + util.toFixed(total, 2));
     }
+
+
 
 // =====================================================================================================
     displayBasket(bool) {
@@ -95,28 +123,14 @@ export class OrderHandler {
 // =====================================================================================================
     add(name, priceinclvat, articleid) {
         /* Add an item to the order. */
-        // TODO: Rewrite with MVC update() in mind
         let self = this;
-        if (self.items.size == 0) {
-            self.displayBasket(1);
-        }
         if (!self.items.has(articleid)) {
             self.items.set(articleid, 1);
-            $("#orderBasketContent").append("<div id=basketItem" + articleid + " class='basketItem'></div>");
-            $("#basketItem" + articleid).append("<p id='" + articleid + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
-            $("#basketItem" + articleid).append("<p id='" + articleid + "-2' style='margin-left: auto;'>€" + priceinclvat + "</p>");
-            $("#" + articleid + "-1").append("<p id='" + articleid + "-1-sub' style='visibility: hidden; font-size: 0.5vw; margin-left: 1em;'>1 * €" + priceinclvat + "/each</p>");
         } else {
             self.items.set(articleid, self.items.get(articleid) + 1);
-            $("#" + articleid + "-1-sub").text(self.items.get(articleid) + " * €" + priceinclvat + "/each");
-            $("#" + articleid + "-2").text("€" + util.toFixed(self.items.get(articleid) * priceinclvat, 2));
-            if ( ($("#" + articleid + "-1-sub").css("visibility")) == "hidden" ) {
-                $("#" + articleid + "-1-sub").css("visibility", "visible");
-            }
         }
-        self.totalCost += Number(priceinclvat);
-        $("#footerTotal").text("€" + util.toFixed(self.totalCost, 2));
         buffer.add("order", articleid); // Add to UNDO-REDO buffer
+        self.update();
     }
 
 // =====================================================================================================
@@ -126,9 +140,7 @@ export class OrderHandler {
         self.items.forEach((val, key) => {
             self.order.add(key, val);
         });
-        console.log(self.order.items); // Debug
-        self.order.items.clear();
-        self.items.clear();
+        console.log(self.order.items); // DEBUG: Do something useful here
         self.empty();
     }
 
@@ -139,8 +151,9 @@ export class OrderHandler {
         self.items.clear();
         self.order.items.clear();
         self.totalCost = 0;
-        $("#orderBasketContent").empty();
         $("#footerTotal").text("Total: €0");
+        buffer.clear("order");
+        self.update();
         // self.displayBasket(0); // HACK
     }
 

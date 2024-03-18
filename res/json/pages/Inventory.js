@@ -17,6 +17,7 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     init() {
         let self = this;
         $.getJSON("res/json/DB/Stock.js")
@@ -31,12 +32,6 @@ export class Inventory {
 
         function _init(element) {
             $(element).append("<div id='notification' style='display: none;'></div>");
-            $(element).append("<div id='inventoryContent'>");
-            $('#inventoryContent').append("<table id='inventory'>");
-            $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
-            .append("<tbody></tbody>")
-            .append("</table>");
-
             $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
                 self.inventoryData = buffer.undo("inventory", self.inventoryData);
                 self.display();
@@ -45,6 +40,11 @@ export class Inventory {
                 self.inventoryData = buffer.redo("inventory", self.inventoryData);
                 self.display();
             }).appendTo(element);
+            $(element).append("<div id='inventoryContent'>");
+            $('#inventoryContent').append("<table id='inventory'>");
+            $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
+            .append("<tbody></tbody>")
+            .append("</table>");
     
             $(element).append("<div id='addItemForm'></div>");
             $("#addItemForm").append("<h2>Add new item</h2>");
@@ -54,8 +54,7 @@ export class Inventory {
         }
     }
 
-    
-
+// =====================================================================================================
     display() {
         // Display inventory
         let self = this;
@@ -101,7 +100,8 @@ export class Inventory {
         });
         self.checkLowStock();
     }
-    
+
+// =====================================================================================================
     // Modify item stock level
     modifyItemStock(nr, amount) {
         let self = this;
@@ -113,6 +113,7 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     // Order refills for low stock items
     orderRefills(nr) {
         let self = this;
@@ -124,6 +125,7 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     // Add a new item to the inventory
     addItem(item) {
         let self = this;
@@ -131,6 +133,7 @@ export class Inventory {
         self.display();
     }
 
+// =====================================================================================================
     // Remove an item from the inventory
     removeItem(nr) {
         let self = this;
@@ -141,6 +144,7 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     checkLowStock() {
         let self = this;
         var lowStockItems = self.inventoryData.filter(item => item.stock < 5 && item.stock > 0);
@@ -151,10 +155,7 @@ export class Inventory {
         }
     }
 
-    
-
-    
-
+// =====================================================================================================
     // Example usage
     // displayInventory();
 
