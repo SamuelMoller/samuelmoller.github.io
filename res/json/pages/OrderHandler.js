@@ -43,7 +43,7 @@ export class OrderHandler {
             $("#orderContent").append("<div id='orderBackground'></div>");
             $.each(self.data, function(key, val) { // Iterate over entries
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer draggable=true>').on("click", function() { // Create div element with click event listener and unique id
-                    self.add(val.name, val.priceinclvat, val.articleid); // Add item to order
+                    self.add(val.articleid); // Add item to order
                 }).on("dragstart", function(e) {
                     util.order_drag(e, val.name, val.priceinclvat, val.articleid);
             }).appendTo("#orderBackground");
@@ -81,28 +81,23 @@ export class OrderHandler {
         /* Update the order. */
         let self = this;
         let total = 0;
-
         $("#orderBasketContent").empty();
         self.items.forEach((val, key) => {
             let name = self.data.find(item => item.articleid === key).name;
             let price = self.data.find(item => item.articleid === key).priceinclvat;
             total += price * val;
-
             $("#orderBasketContent").append("<div id=basketItem" + key + " class='basketItem'></div>");
             $("#basketItem" + key).append("<p id='" + key + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
             $("#basketItem" + key).append("<p id='" + key + "-2' style='margin-left: auto;'>€" + util.toFixed(price * val, 2) + "</p>");
-
             $("#" + key + "-1").append("<p id='" + key + "-1-sub' style='visibility: hidden; font-size: 0.5vw; margin-left: 1em;'>" + val + " * €" + price + "/each</p>");
             if (val > 1) {
                 if ( ($("#" + key + "-1-sub").css("visibility")) == "hidden" ) {
-                        $("#" + key + "-1-sub").css("visibility", "visible");
-                }
+                        $("#" + key + "-1-sub").css("visibility", "visible"); 
+                }  
             }
         });
         $("#footerTotal").text("€" + util.toFixed(total, 2));
     }
-
-
 
 // =====================================================================================================
     displayBasket(bool) {
@@ -121,7 +116,7 @@ export class OrderHandler {
     }
 
 // =====================================================================================================
-    add(name, priceinclvat, articleid) {
+    add(articleid) {
         /* Add an item to the order. */
         let self = this;
         if (!self.items.has(articleid)) {

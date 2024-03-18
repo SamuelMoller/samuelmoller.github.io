@@ -91,12 +91,7 @@ export class Inventory {
             self.addItem(newItem);
         
             // Clear the form
-            $('#addItemNr').val('');
-            $('#addItemName').val('');
-            $('#addItemCountry').val('');
-            $('#addItemType').val('');
-            $('#addItemPrice').val('');
-            $('#addItemStock').val('');
+            $("input[id^='addItem']").val('');
         });
         self.checkLowStock();
     }
