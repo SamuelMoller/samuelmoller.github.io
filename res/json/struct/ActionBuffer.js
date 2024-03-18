@@ -40,17 +40,18 @@ export function getRedo(type) {
 
 // =====================================================================================================
 export function add(type, action) {
+    console.log(action); // DEBUG
     switch (type) {
-        case "order":
+        case "order": // It's only possible to add a single item to an order, so the action is the item id
             ubuffer['order'].push(action);
             break;
-        case "inventory":
+        case "inventory": // Inventory can have an unknown amount of increments or decrements in one action
             ubuffer['inventory'].push(action);
             break;
         default:
             console.log("Error: Unknown action type");
     }
-    if (ubuffer[type].length > 50) {
+    if (ubuffer[type].length > 50) { // Limit buffer size to 50
         ubuffer[type].shift();
     }
     rbuffer[type] = [];
@@ -62,7 +63,6 @@ export function undo(type, ref) {
         console.log("Error: No actions to undo");
         return ref;
     }
-    let action = [];
     switch (type) {
         case "order":
             let id = ubuffer['order'].pop();
@@ -71,11 +71,16 @@ export function undo(type, ref) {
             } else if (ref.get(id) === 1) {
                 ref.delete(id);
             }
-            action = ["order", ref, id];
-            rbuffer['order'].push(action);
+            rbuffer['order'].push(["order", ref, id]);
             break;
         case "inventory":
-            action = ubuffer['inventory'].pop();
+            let action = ubuffer['inventory'].pop();
+            let nr = action[0];
+            let amount = action[1] * -1;
+            let index = ref.findIndex(item => item.nr === nr);
+            if (index > -1) {
+                ref[index].stock += amount;
+            }
             rbuffer['inventory'].push(action);
             break;
         default:
@@ -93,10 +98,10 @@ export function redo(type, ref) {
     let action = rbuffer[type].pop();
     switch (type) {
         case "order":
-            if (!ref.has(action[2])) {
-                ref.set(action[2], 1);
-            } else if (ref.get(action[2]) > 0) {
-                ref.set(action[2], ref.get(action[2]) + 1);
+            if (!ref.has(action[2])) { // If the reference does not have the key
+                ref.set(action[2], 1); // Add the key with value 1
+            } else if (ref.get(action[2]) > 0) { // If the reference has the key
+                ref.set(action[2], ref.get(action[2]) + 1); // Increment the value
             }
             ubuffer['order'].push(action[2]);
             break;

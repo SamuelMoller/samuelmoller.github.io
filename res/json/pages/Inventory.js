@@ -5,6 +5,7 @@
 // =====================================================================================================
 
 import * as PH from '../PageHandler.js';
+import * as buffer from "../struct/ActionBuffer.js";
 
 export class Inventory {
     constructor(arg1, arg2) {
@@ -35,6 +36,17 @@ export class Inventory {
             $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
             .append("<tbody></tbody>")
             .append("</table>");
+
+            $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
+                self.inventoryData = buffer.undo("inventory", self.inventoryData)
+                self.display();
+                console.log(self.inventoryData); // DEBUG
+            }).appendTo(element);
+            $("<button id='inventoryRedo'>Redo</button>").on("click", function() {
+                self.inventoryData = buffer.redo("inventory", self.inventoryData)
+                self.display();
+                console.log(self.inventoryData); // DEBUG
+            }).appendTo(element);
     
             $(element).append("<div id='addItemForm'></div>");
             $("#addItemForm").append("<h2>Add new item</h2>");
@@ -98,6 +110,7 @@ export class Inventory {
         var itemIndex = self.inventoryData.findIndex(item => item.nr === nr);
         if (itemIndex > -1) {
             self.inventoryData[itemIndex].stock += amount;
+            buffer.add("inventory", [nr, amount]);
             self.display();
         }
     }
