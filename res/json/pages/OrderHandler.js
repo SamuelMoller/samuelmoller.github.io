@@ -66,11 +66,14 @@ export class OrderHandler {
         }).appendTo("#orderBasketFooter");
         $("<button id='basketUndo'>Undo</button>").on("click", function() {
             self.items = buffer.undo("order", self.items)
+            console.log(self.items); // DEBUG
         }).appendTo("#orderBasketHeader");
         $("<button id='basketRedo'>Redo</button>").on("click", function() {
             self.items = buffer.redo("order", self.items)
+            console.log(self.items); // DEBUG
         }).appendTo("#orderBasketHeader");
         self.displayBasket(1); // HACK: Dodging my CSS responsibilities
+        
     }
 
 // =====================================================================================================
@@ -92,6 +95,7 @@ export class OrderHandler {
 // =====================================================================================================
     add(name, priceinclvat, articleid) {
         /* Add an item to the order. */
+        // TODO: Rewrite with MVC update() in mind
         let self = this;
         if (self.items.size == 0) {
             self.displayBasket(1);

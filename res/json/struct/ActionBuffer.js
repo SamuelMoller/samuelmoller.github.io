@@ -53,6 +53,7 @@ export function add(type, action) {
     if (ubuffer[type].length > 50) {
         ubuffer[type].shift();
     }
+    rbuffer[type] = [];
 }
 
 // =====================================================================================================
@@ -61,7 +62,7 @@ export function undo(type, ref) {
         console.log("Error: No actions to undo");
         return ref;
     }
-    let action = "";
+    let action = [];
     switch (type) {
         case "order":
             let id = ubuffer['order'].pop();
@@ -84,18 +85,26 @@ export function undo(type, ref) {
 }
 
 // =====================================================================================================
-export function redo(type) {
-    let action = "";
+export function redo(type, ref) {
+    if (rbuffer[type].length === 0) {
+        console.log("Error: No actions to redo");
+        return ref;
+    }
+    let action = rbuffer[type].pop();
     switch (type) {
         case "order":
-            action = rbuffer['order'].pop();
-            ubuffer['order'].push(action[1]);
+            if (!ref.has(action[2])) {
+                ref.set(action[2], 1);
+            } else if (ref.get(action[2]) > 0) {
+                ref.set(action[2], ref.get(action[2]) + 1);
+            }
+            ubuffer['order'].push(action[2]);
             break;
         case "inventory":
-            action = rbuffer['inventory'].pop();
             ubuffer['inventory'].push(action);
             break;
         default:
             console.log("Error: Unknown action type");
     }
+    return ref;
 }
