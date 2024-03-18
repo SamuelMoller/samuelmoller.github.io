@@ -24,16 +24,17 @@ export function order_drop(e, orderHandler) {
 
 export function idleTimer(lim, page) {
     let time = 0;
-    $(document).on("mousemove", function() {
-        time = 0;
-    });
-    $(document).on("keypress", function() {
-        time = 0;
+    let events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    $.each(events, function(i, event) {
+        $(document).on(event, function() {
+            time = 0;
+        });
     });
     let interval = setInterval(function() {
         time++;
         if (time > lim) {
-            clearInterval(interval);
+            // clearInterval(interval);
+            time = 0;
             PH.page(page);
         }
     }, 1000);
