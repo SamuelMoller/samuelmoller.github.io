@@ -47,8 +47,6 @@ export class OrderHandler {
         }
     }
 
-    
-
 // =====================================================================================================
     initBasket() {
         /* Create a basket for the order. */

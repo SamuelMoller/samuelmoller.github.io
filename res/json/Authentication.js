@@ -31,7 +31,7 @@ export class Authentication {
             $("form").append("<label for='username'>Username:</label>");
             $("form").append("<input type='text' id='username' name='username'><br><br>");
             $("form").append("<label for='password'>Password:</label>");
-            $("form").append("<input type='text' id='password' name='password'><br><br>");
+            $("form").append("<input type='password' id='password' name='password'><br><br>");
             $("form").append("<input type='submit' value='Submit'>");
             $("#loginForm").on("submit", function(event) {
                 event.preventDefault();  // Prevent the form from being submitted normally (to prevent credentials in URL)

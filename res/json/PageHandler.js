@@ -1,3 +1,4 @@
+import * as util from "./Utilities.js";
 import { Header } from "./pages/Header.js";
 import { Hero } from "./pages/Hero.js";
 import { Authentication } from "./Authentication.js";
@@ -25,6 +26,7 @@ export function clear() {
 }
 
 $("document").ready(function() {    // When document is ready/loaded
+    util.idleTimer(3, "login");
     $("body").append("<header></header>");
     const header = new Header();
     const hero = new Hero("body", 1);
