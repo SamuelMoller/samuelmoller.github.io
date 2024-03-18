@@ -86,7 +86,14 @@ export class OrderHandler {
             let name = self.data.find(item => item.articleid === key).name;
             let price = self.data.find(item => item.articleid === key).priceinclvat;
             total += price * val;
-            $("#orderBasketContent").append("<div id=basketItem" + key + " class='basketItem'></div>");
+            $("<div id=basketItem" + key + " class='basketItem'></div>").on("click", function() {
+                self.items.set(key, val - 1);
+                if (val - 1 <= 0) {
+                    self.items.delete(key);
+                }
+                buffer.add("order", [key, -1]);
+                self.update();
+            }).appendTo("#orderBasketContent");
             $("#basketItem" + key).append("<p id='" + key + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
             $("#basketItem" + key).append("<p id='" + key + "-2' style='margin-left: auto;'>€" + util.toFixed(price * val, 2) + "</p>");
             $("#" + key + "-1").append("<p id='" + key + "-1-sub' style='visibility: hidden; font-size: 0.5vw; margin-left: 1em;'>" + val + " * €" + price + "/each</p>");
@@ -124,7 +131,7 @@ export class OrderHandler {
         } else {
             self.items.set(articleid, self.items.get(articleid) + 1);
         }
-        buffer.add("order", articleid); // Add to UNDO-REDO buffer
+        buffer.add("order", [articleid, 1]); // Add to UNDO-REDO buffer
         self.update();
     }
 

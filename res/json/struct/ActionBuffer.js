@@ -68,18 +68,20 @@ export function undo(type, ref) {
         console.log("Error: No actions to undo");
         return ref;
     }
+    let action = ubuffer[type].pop();
     switch (type) {
-        case "order":
-            let id = ubuffer['order'].pop();
-            if (ref.get(id) > 1) {
-                ref.set(id, ref.get(id) - 1);
-            } else if (ref.get(id) === 1) {
+        case "order": {
+            let id = action[0];
+            let amount = action[1];
+            if (ref.get(id) > amount) {
+                ref.set(id, ref.get(id) - amount);
+            } else if (ref.get(id) <= amount) {
                 ref.delete(id);
             }
-            rbuffer['order'].push(["order", ref, id]);
+            rbuffer['order'].push(["order", ref, id, amount]);
             break;
-        case "inventory":
-            let action = ubuffer['inventory'].pop();
+        }
+        case "inventory": {
             let nr = action[0];
             let amount = action[1] * -1;
             let index = ref.findIndex(item => item.nr === nr);
@@ -88,6 +90,7 @@ export function undo(type, ref) {
             }
             rbuffer['inventory'].push(action);
             break;
+        }
         default:
             console.log("Error: Unknown action type");
     }
@@ -102,15 +105,18 @@ export function redo(type, ref) {
     }
     let action = rbuffer[type].pop();
     switch (type) {
-        case "order":
-            if (!ref.has(action[2])) { // If the reference does not have the key
-                ref.set(action[2], 1); // Add the key with value 1
-            } else if (ref.get(action[2]) > 0) { // If the reference has the key
-                ref.set(action[2], ref.get(action[2]) + 1); // Increment the value
+        case "order": {
+            let id = action[2];
+            let amount = action[3];
+            if (!ref.has(id)) { // If the reference does not have the key
+                ref.set(id, amount); // Add the key with value 1
+            } else if (ref.get(id) > 0) { // If the reference has the key
+                ref.set(id, ref.get(id) + amount); // Increment the value
             }
-            ubuffer['order'].push(action[2]);
+            ubuffer['order'].push([id, amount]);
             break;
-        case "inventory":
+        }
+        case "inventory": {
             let nr = action[0];
             let amount = action[1];
             let index = ref.findIndex(item => item.nr === nr);
@@ -119,6 +125,7 @@ export function redo(type, ref) {
             }
             ubuffer['inventory'].push(action);
             break;
+        }
         default:
             console.log("Error: Unknown action type");
     }
