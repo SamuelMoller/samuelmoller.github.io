@@ -1,4 +1,4 @@
-import { getDropdown } from "./Header";
+import { headerInstance as h} from "./Header.js";
 
 export class Inventory {
     constructor(arg1, arg2) {
@@ -23,7 +23,7 @@ export class Inventory {
     }
 
     _init(element) {
-        const dropdown = getDropdown();
+        const dropdown = h.getDropdown();
         const languageSelector2 = {
             'en': {
                 'Add': 'Add new item',
@@ -46,14 +46,14 @@ export class Inventory {
                 'Submit': 'Soumettre'
             },
             'es' : {
-                'Add': 'Agregar ítem nuevo',
+                'Add': 'Agrega un nuevo producto',
                 'NR': 'NR',
                 'Name': 'Nombre',
                 'Country': 'País',
                 'Type': 'Tipo',
                 'Price': 'Precio',
-                'Stock': 'Existencias',
-                'Submit': 'Entregar'
+                'Stock': 'Cantidad',
+                'Submit': 'Entrega'
             }
         }
 
@@ -66,21 +66,21 @@ export class Inventory {
         .append("</table>");
 
         $(element).append("<div id='addItemForm'></div>");
-        $("#addItemForm").append("<div class='add'></div>");
-        $("#addItemForm").append("<div class='nr'></div><br><div class='name'></div><br><div class='country'></div><br><div class='type'></div><br><div class='price'></div><br><div class='stock'></div><br>");
-        $("#addItemForm").append("<button id='submit'>Submit</button>");
+        $("#addItemForm").append("<h2>Add new item</h2>");
+        $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
+        $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
         self.display();
 
         dropdown.on('change', function() {
-            const selectedLanguage2 = $(this).val();
-            $("#addItemForm").find(".add").text(languageSelector2[selectedLanguage2]['Add']);
-            $("#addItemForm").find(".nr").text(languageSelector2[selectedLanguage2]['NR']);
-            $("#addItemForm").find(".name").text(languageSelector2[selectedLanguage2]['Name']);
-            $("#addItemForm").find(".country").text(languageSelector2[selectedLanguage2]['Country']);
-            $("#addItemForm").find(".type").text(languageSelector2[selectedLanguage2]['Type']);
-            $("#addItemForm").find(".price").text(languageSelector2[selectedLanguage2]['Price']);
-            $("#addItemForm").find(".stock").text(languageSelector2[selectedLanguage2]['Stock']);
-            $("#addItemForm").find(".submit").text(languageSelector2[selectedLanguage2]['Submit']);
+            const selectedLanguage2 = dropdown.val();
+            //$("#addItemForm").find("#addItemNr").attr('NR', (languageSelector2[selectedLanguage2]['Add']));
+            $("#addItemForm").find("#addItemNr").attr('placeholder', languageSelector2[selectedLanguage2]['NR']);
+            $("#addItemForm").find("#addItemName").attr('placeholder', languageSelector2[selectedLanguage2]['Name']);
+            $("#addItemForm").find("#addItemCountry").attr('placeholder', languageSelector2[selectedLanguage2]['Country']);
+            $("#addItemForm").find("#addItemType").attr('placeholder', languageSelector2[selectedLanguage2]['Type']);
+            $("#addItemForm").find("#addItemPrice").attr('placeholder', languageSelector2[selectedLanguage2]['Price']);
+            $("#addItemForm").find("#addItemStock").attr('placeholder', languageSelector2[selectedLanguage2]['Stock']);
+            $("#submitNewItem").text(languageSelector2[selectedLanguage2]['Submit']);
             
         });
     }

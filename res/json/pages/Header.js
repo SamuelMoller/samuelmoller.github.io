@@ -30,9 +30,9 @@ export class Header {
                 'Login': 'Se connecter',
             },
             'es' : {
-                'Title': 'La vieja tortuga marina',
-                'Book': 'Reservar una mesa',
-                'Apply': 'Aplicar para VIP',
+                'Title': 'La antigua tortuga de mar',
+                'Book': 'Reserva una mesa',
+                'Apply': 'Aplica para ser VIP',
                 'Login': 'Acceso',
             }
         }
@@ -106,3 +106,6 @@ export class Header {
     }*/
 
 }
+
+const headerInstance= new Header();
+export { headerInstance };
