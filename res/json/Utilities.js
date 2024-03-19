@@ -1,3 +1,9 @@
+import { Locale as locale } from './DB/Locale.js';
+
+export function loc(lang) {
+    return locale[lang][0];
+}
+// =====================================================================================================
 export function toFixed(num, fixed) {
     var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     return num.toString().match(re)[0];
@@ -43,3 +49,4 @@ export function animateHero(b, e1, e2) {
             height: b ? "100vmin" : "30vmin" // I love tertiary operators, man. Coolest thing in this project.
     });
 }
+// =====================================================================================================

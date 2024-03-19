@@ -5,6 +5,7 @@
 
 import * as util from "./Utilities.js";
 import { Header } from "./pages/Header.js";
+import { Footer } from "./pages/Footer.js";
 import { Hero } from "./pages/Hero.js";
 import { Authentication } from "./Authentication.js";
 import { OrderHandler } from "./pages/OrderHandler.js";
@@ -37,5 +38,6 @@ $("document").ready(function() {    // When document is ready/loaded
     const hero = new Hero("body", 1);
     $("body").append("<main></main>");
     $("body").append("<footer></footer>");
+    const footer = new Footer();
     page("order")
 });

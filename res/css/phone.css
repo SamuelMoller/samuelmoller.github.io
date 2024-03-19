@@ -106,6 +106,53 @@ header,
                 cursor: pointer;
             }
 
+/* ===================================================================================================== */
+/* || FOOTER                                                                                             */
+/* ===================================================================================================== */
+footer,
+.footer-content {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 10%;
+    /* background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
+}
+
+.footer-content {
+    justify-content: start;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 0.5vw;
+
+}
+
+#footer-content-left {
+    display: inherit;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 50%;
+    gap: 3vmin;
+}
+
+#footer-content-right {
+    display: inherit;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 50%;
+    gap: 1vmin;
+}
+    #footer-content-right img {
+        width: 4vmin;
+        height: 2vmin;
+        filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+    }
 
 /* ===================================================================================================== */
 /* || MAIN CONTENT                                                                                       */
