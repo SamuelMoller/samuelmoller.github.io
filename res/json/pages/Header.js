@@ -9,31 +9,67 @@ import { OrderHandler } from "./OrderHandler"; */
 
 export class Header {
     constructor() {
+        this.dropdown;
         this.initHeader();
     }
 
 // =====================================================================================================
     initHeader() {
+
+        const languageSelector1 = {
+            'en': {
+                'Title': 'The Old Sea Turtle',
+                'Book': 'Book a table',
+                'Apply': 'Apply for VIP',
+                'Login': 'Login',
+            },
+            'fr' : {
+                'Title': 'La vieille tortue de mer',
+                'Book': 'Réserver une table',
+                'Apply': 'Demander VIP',
+                'Login': 'Se connecter',
+            },
+            'es' : {
+                'Title': 'La vieja tortuga marina',
+                'Book': 'Reservar una mesa',
+                'Apply': 'Aplicar para VIP',
+                'Login': 'Acceso',
+            }
+        }
+
         let self = this;
         $("header").append("<div class='header-content'></div>");
         $(".header-content").append("<div id='header-content-left'></div>");
         $(".header-content").append("<div id='header-content-right'></div>");
         $("#header-content-left").append("<img src='res/img/logo-small.png' >");
-        $("#header-content-left").append("<h1>The Old Sea Turtle</h1>");
-        $("#header-content-right").append("<p>Book a table</p>");
-        $("#header-content-right").append("<p>Apply for VIP</p>");
-        $("#header-content-right").append("<p>Login</p>");
-        
+        $("#header-content-left").append("<div class='title'></div>");
+        $("#header-content-right").append("<div class='book'></div>");
+        $("#header-content-right").append("<div class='apply'></div>");
+        $("#header-content-right").append("<div class='login'></div>");
+
         // language selection menu object
-        const dropdown = $("<select id='language-dropdown'></select>");
-        dropdown.append("<option value='en'>English</option>");
-        dropdown.append("<option value='fr'>French</option>");
-        dropdown.append("<option value='de'>German</option>");
-        $("#header-content-right").append(dropdown);
+        this.dropdown = $("<select id='language-dropdown'></select>");
+        this.dropdown.append("<option value='en'>English</option>");
+        this.dropdown.append("<option value='fr'>French</option>");
+        this.dropdown.append("<option value='es'>Spanish</option>");
+        $("#header-content-right").append(this.dropdown);
+        
+        this.dropdown.on('change', function() {
+            const selectedLanguage = $(this).val();
+            $("#header-content-left").find(".title").text(languageSelector1[selectedLanguage]['Title']);
+            $("#header-content-right").find(".book").text(languageSelector1[selectedLanguage]['Book']);
+            $("#header-content-right").find(".apply").text(languageSelector1[selectedLanguage]['Apply']);
+            $("#header-content-right").find(".login").text(languageSelector1[selectedLanguage]['Login']);
+            
+        });
 
     }
     
-    translationConfig() {
+    getDropdown() {
+        return this.dropdown;
+    }
+    
+/*     translationConfig() {
         $("#language-dropdown").on("change", function() {
             const selectedLanguage = $(this).val();
             translatePage(selectedLanguage);
@@ -66,7 +102,7 @@ export class Header {
             error: function(error) {
                 console.error("Error translating element:", error);
             }
-        });
-    }
+        }); 
+    }*/
 
 }

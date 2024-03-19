@@ -1,3 +1,5 @@
+//import { Header } from "./Header";
+
 export class Inventory {
     constructor(arg1, arg2) {
         this.arg1 = arg1;
@@ -21,6 +23,39 @@ export class Inventory {
     }
 
     _init(element) {
+        const languageSelector2 = {
+            'en': {
+                'Add': 'Add new item',
+                'NR': 'NR',
+                'Name': 'Name',
+                'Country': 'Country',
+                'Type': 'Type',
+                'Price': 'Price',
+                'Stock': 'Stock',
+                'Submit': 'Submit'
+            },
+            'fr' : {
+                'Add': 'Ajoute un nouvel objet',
+                'NR': 'NR',
+                'Name': 'Nom',
+                'Country': 'Pays',
+                'Type': 'Taper',
+                'Price': 'Prix',
+                'Stock': 'Le stock',
+                'Submit': 'Soumettre'
+            },
+            'es' : {
+                'Add': 'Agregar ítem nuevo',
+                'NR': 'NR',
+                'Name': 'Nombre',
+                'Country': 'País',
+                'Type': 'Tipo',
+                'Price': 'Precio',
+                'Stock': 'Existencias',
+                'Submit': 'Entregar'
+            }
+        }
+
         let self = this;
         $(element).append("<div id='notification' style='display: none;'></div>");
         $(element).append("<div id='inventoryContent'>");
@@ -30,10 +65,23 @@ export class Inventory {
         .append("</table>");
 
         $(element).append("<div id='addItemForm'></div>");
-        $("#addItemForm").append("<h2>Add new item</h2>");
-        $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
-        $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
+        $("#addItemForm").append("<div class='add'></div>");
+        $("#addItemForm").append("<div class='nr'></div><br><div class='name'></div><br><div class='country'></div><br><div class='type'></div><br><div class='price'></div><br><div class='stock'></div><br>");
+        $("#addItemForm").append("<button id='submit'>Submit</button>");
         self.display();
+
+        dropdown.on('change', function() {
+            const selectedLanguage2 = $(this).val();
+            $("#addItemForm").find(".add").text(languageSelector2[selectedLanguage2]['Add']);
+            $("#addItemForm").find(".nr").text(languageSelector2[selectedLanguage2]['NR']);
+            $("#addItemForm").find(".name").text(languageSelector2[selectedLanguage2]['Name']);
+            $("#addItemForm").find(".country").text(languageSelector2[selectedLanguage2]['Country']);
+            $("#addItemForm").find(".type").text(languageSelector2[selectedLanguage2]['Type']);
+            $("#addItemForm").find(".price").text(languageSelector2[selectedLanguage2]['Price']);
+            $("#addItemForm").find(".stock").text(languageSelector2[selectedLanguage2]['Stock']);
+            $("#addItemForm").find(".submit").text(languageSelector2[selectedLanguage2]['Submit']);
+            
+        });
     }
 
     display() {
