@@ -46,7 +46,7 @@ export function reload() {
 
 $("document").ready(function() {    // When document is ready/loaded
     // util.idleTimer(60, "login");
-    util.setLang("sv-SE");
+    util.setLang("en-US");
     $("body").append("<header></header>");
     header.init();
     const hero = new Hero("body", 1);

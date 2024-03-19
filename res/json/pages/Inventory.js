@@ -65,8 +65,8 @@ export class Inventory {
         $('#inventory tbody').empty();
         $.each(self.inventoryData, function(key, val) {
             var rowClass = val.stock < 5 ? 'low-stock' : '';
-            var actionButtons = '<button class="edit-item" data-nr="' + val.nr + '">Edit</button> ';
-            actionButtons += val.stock > 0 ? '<button class="remove-item" data-nr="' + val.nr + '">Remove</button>' : 'out of stock';
+            var actionButtons = '<button class="edit-item" data-nr="' + val.nr + '">'+ util.trans("edit") + '</button> ';
+            actionButtons += val.stock > 0 ? '<button class="remove-item" data-nr="' + val.nr + '">' + util.trans("remove") + '</button>' : util.trans("outOfStock");
             $('#inventory tbody').append('<tr class="' + rowClass + '"><td>' + val.nr + '</td><td>' + val.name + '</td><td>' + val.country + '</td><td>' + val.type + '</td><td>$' + val.price + '</td><td>' + val.stock + '</td><td>' + actionButtons + '</td></tr>');
         });
 
@@ -77,7 +77,7 @@ export class Inventory {
 
         $('.edit-item').on('click', function() {
             var nr = $(this).attr('data-nr');
-            var newStock = prompt("Please enter the new stock quantity for this item:");
+            var newStock = prompt(util.trans("newQuantity"));
             if (newStock !== null) {
                 self.modifyItemStock(nr, parseInt(newStock, 10) - self.inventoryData.find(item => item.nr === nr).stock);
             }
@@ -148,7 +148,7 @@ export class Inventory {
         let self = this;
         var lowStockItems = self.inventoryData.filter(item => item.stock < 5 && item.stock > 0);
         if (lowStockItems.length > 0) {
-            $('#notification').text('Warning: Some items are low on stock!').show();
+            $('#notification').text(util.trans("lowStock")).show();
         } else {
             $('#notification').hide();
         }

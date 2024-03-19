@@ -25,6 +25,8 @@ export var Locale = {
             "addNewItem": "Add new item",
             "undo": "Undo",
             "redo": "Redo",
+            "newQuantity": "Please enter a new quantity",
+            "lowStock": "Warning: Some items are low in stock!"
         }],
     "sv-SE": [
         {
@@ -52,6 +54,8 @@ export var Locale = {
             "addNewItem": "Lägg till ny artikel",
             "undo": "Ångra",
             "redo": "Gör om",
+            "newQuantity": "Vänligen ange ett nytt antal",
+            "lowStock": "Varning! Vissa artiklar har låg lagerstatus!"
         }],
     "es-ES": [
         {
@@ -79,6 +83,8 @@ export var Locale = {
             "addNewItem": "Añadir nuevo objeto",
             "undo": "Deshacer",
             "redo": "Rehacer",
+            "newQuantity": "Por favor ingrese una nueva cantidad",
+            "lowStock": "Advertencia: ¡Algunos artículos tienen pocas existencias!"
         }],
     "fr-FR": [
         {
@@ -88,7 +94,7 @@ export var Locale = {
             "login": "Se connecter",
             "order": "Commande",
             "total": "Total",
-            "placeOrder": "Commandez maintenant",
+            "placeOrder": "Commandez",
             "orderThanks": "Votre commande a été envoyée !\nMerci pour votre achat !",
             "username": "Nom d'utilisateur",
             "password": "Mot de passe",
@@ -105,6 +111,8 @@ export var Locale = {
             "addNewItem": "Ajoute un nouvel objet",
             "undo": "Annuler",
             "redo": "Refaire",
+            "newQuantity": "Veuillez saisir une nouvelle quantité",
+            "lowStock": "Attention : certains articles sont en rupture de stock !"
         }
     ]
 };

@@ -37,7 +37,7 @@ export class Header {
             $("#headerInventory").remove();
             $("#headerLogin").text(util.trans("login"));
         });
-        $("<p id='headerInventory'>Inventory</p>").on("click", function() {
+        $("<p id='headerInventory'>" + util.trans("inventory") + "</p>").on("click", function() {
             PH.page("inventory");
         }).insertBefore("#headerLogin");
     }
