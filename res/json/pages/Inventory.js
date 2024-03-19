@@ -6,6 +6,7 @@
 
 import * as PH from '../PageHandler.js';
 import * as buffer from "../struct/ActionBuffer.js";
+import * as util from "../Utilities.js";
 
 export class Inventory {
     constructor(arg1, arg2) {
@@ -34,22 +35,22 @@ export class Inventory {
             $(element).append("<div id='notification' style='display: none;'></div>");
             $(element).append("<div id='inventoryContent'>");
             $('#inventoryContent').append("<table id='inventory'>");
-            $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
+            $("#inventory").append("<thead><tr><th>#</th><th>" + util.trans("name") + "</th><th>" + util.trans("country") + "</th><th>" + util.trans("type") + "</th><th>" + util.trans("price") + "</th><th>" + util.trans("stock") + "</th><th>" + util.trans("actions") + "</th></tr></thead>")
             .append("<tbody></tbody>")
             .append("</table>");
 
             $(element).append("<div id='inventoryContent-sub'></div>");
             $('#inventoryContent-sub').append("<div id='addItemForm'></div>");
-            $("#addItemForm").append("<h2>Add new item</h2>");
-            $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
-            $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
+            $("#addItemForm").append("<h2>" + util.trans("addNewItem") + "</h2>");
+            $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='#'><br><input type='text' id='addItemName' placeholder='" + util.trans("name") + "'><br><input type='text' id='addItemCountry' placeholder='" + util.trans("country") + "'><br><input type='text' id='addItemType' placeholder='" + util.trans("type") + "'><br><input type='number' step='0.01' id='addItemPrice' placeholder='" + util.trans("price") + "'><br><input type='number' id='addItemStock' placeholder='" + util.trans("stock") + "'><br>");
+            $("#addItemForm").append("<button id='submitNewItem'>" + util.trans("submit") + "</button>");
 
             $('#inventoryContent-sub').append("<div id='inventoryContent-UndoRedo'></div>");
-            $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
+            $("<button id='inventoryUndo'>" + util.trans("undo") + "</button>").on("click", function() {
                 self.inventoryData = buffer.undo("inventory", self.inventoryData);
                 self.display();
             }).appendTo('#inventoryContent-UndoRedo');
-            $("<button id='inventoryRedo'>Redo</button>").on("click", function() {
+            $("<button id='inventoryRedo'>" + util.trans("redo") + "</button>").on("click", function() {
                 self.inventoryData = buffer.redo("inventory", self.inventoryData);
                 self.display();
             }).appendTo('#inventoryContent-UndoRedo');

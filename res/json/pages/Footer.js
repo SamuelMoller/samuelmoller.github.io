@@ -1,4 +1,5 @@
 import * as util from "../Utilities.js";
+import { reload } from "../PageHandler.js";
 
 export class Footer {
     constructor() {
@@ -16,17 +17,20 @@ export class Footer {
         $("#footer-content-right").append("<img id='footer-svg-ES' src='res/img/svg/es-ES.svg' >");
 
         $("#footer-svg-SE").on("click", function() {
-            sessionStorage.setItem("lang", "sv-SE");
-            console.log(util.getLocale("sv-SE")["submit"])
+            util.setLang("sv-SE");
+            reload();
         });
         $("#footer-svg-EN").on("click", function() {
-            sessionStorage.setItem("lang", "en-US");
+            util.setLang("en-US");
+            reload();
         });
         $("#footer-svg-FR").on("click", function() {
-            sessionStorage.setItem("lang", "fr-FR");
+            util.setLang("fr-FR");
+            reload();
         });
         $("#footer-svg-ES").on("click", function() {
-            sessionStorage.setItem("lang", "es-ES");
+            util.setLang("es-ES");
+            reload();
         });
     }
 }

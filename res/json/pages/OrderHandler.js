@@ -59,7 +59,7 @@ export class OrderHandler {
             $("#orderBasket").append("<div id='orderBasketHeader'></div>");
             $("#orderBasketHeader").append("<div id=orderBasketHeader-L></div>");
             $("#orderBasketHeader").append("<div id=orderBasketHeader-R></div>");
-            $("#orderBasketHeader-L").append("<h2>Order</h2>");
+            $("#orderBasketHeader-L").append("<h2>" + util.trans("order") + "</h2>");
 
             $("#orderBasket").append("<div id='orderBasketContent'></div>");
 
@@ -75,8 +75,8 @@ export class OrderHandler {
                 self.items = buffer.redo("order", self.items)
                 self.update();
             }).appendTo("#orderBasketHeader-R");
-            $("#orderBasketFooter-L").append("<h2 id='footerTotal'>Total: €0</h2>");
-            $("<button id='orderNow'>Order now</button>").on("click", function() {
+            $("#orderBasketFooter-L").append("<h2 id='footerTotal'>" + util.trans("total") + ": €0</h2>");
+            $("<button id='orderNow'>" + util.trans("placeOrder") + "</button>").on("click", function() {
                 self.send();
             }).appendTo("#orderBasketFooter-R");
             // self.displayBasket(1); // HACK: Dodging my CSS responsibilities
@@ -150,7 +150,7 @@ export class OrderHandler {
         self.items.forEach((val, key) => {
             self.order.add(key, val);
         });
-        alert("Your order has been sent!\nThank you for your purchase!");
+        alert(util.trans("orderThanks"));
         self.empty();
     }
 
@@ -161,7 +161,7 @@ export class OrderHandler {
         self.items.clear();
         self.order.items.clear();
         self.totalCost = 0;
-        $("#footerTotal").text("Total: €0");
+        $("#footerTotal").text(util.trans("total") + ": €0");
         buffer.clear("order");
         self.update();
         // self.displayBasket(0); // HACK

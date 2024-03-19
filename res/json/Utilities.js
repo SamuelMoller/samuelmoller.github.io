@@ -1,8 +1,18 @@
 import { Locale as locale } from './DB/Locale.js';
 
-export function loc(lang) {
-    return locale[lang][0];
-}
+export function setLang(lang) {
+    sessionStorage.setItem("lang", lang);
+    console.log("Language set to: " + lang);
+};
+
+export function getLang() {
+    return sessionStorage.getItem("lang");
+};
+
+export function trans(key) {
+    return locale[getLang()][0][key];
+};
+
 // =====================================================================================================
 export function toFixed(num, fixed) {
     var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');

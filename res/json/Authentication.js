@@ -7,6 +7,7 @@
 // =====================================================================================================
 
 import * as PH from './PageHandler.js';
+import * as util from './Utilities.js';
 import { DB } from './DB/Users.js';
 import { instance as header } from './pages/Header.js';
 
@@ -27,13 +28,13 @@ export class Authentication {
 
         function _init(element) {
             $(element).append("<div class='loginContainer'>");
-            $(".loginContainer").append("<h1 id='login-header'>Login</h1>");
+            $(".loginContainer").append("<h1 id='login-header'>" + util.trans("login") + "</h1>");
             $(".loginContainer").append("<form id='loginForm' method=post>");
-            $("form").append("<label for='username'>Username:</label>");
+            $("form").append("<label for='username'>" + util.trans("username") + ":</label>");
             $("form").append("<input type='text' id='username' name='username'>");
-            $("form").append("<label for='password'>Password:</label>");
+            $("form").append("<label for='password'>" + util.trans("password") + ":</label>");
             $("form").append("<input type='password' id='password' name='password'>");
-            $("form").append("<input type='submit' value='Submit'>");
+            $("form").append("<input type='submit' value='" + util.trans("submit") + "'>");
             $("#loginForm").on("submit", function(event) {
                 event.preventDefault();  // Prevent the form from being submitted normally (to prevent credentials in URL)
                 self.login();  // Call the login function manually
