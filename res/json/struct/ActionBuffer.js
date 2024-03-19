@@ -3,7 +3,8 @@
 //
 // This file contains the ActionBuffer class, which is responsible for storing actions in a buffer,
 // and for undoing and redoing actions. The buffer is used to store actions for both the order and
-// inventory pages. The buffer is a stack, and the buffer size is limited to 50 actions.
+// inventory pages. The buffer is a stack, and the buffer size can be limited to 50 actions,
+// by uncommenting the block of code on lines 54-56.
 // =====================================================================================================
 
 var ubuffer = {}; // Undo buffer
@@ -50,9 +51,9 @@ export function add(type, action) {
         default:
             console.log("Error: Unknown action type");
     }
-    if (ubuffer[type].length > 50) { // Limit buffer size to 50
-        ubuffer[type].shift();
-    }
+    // if (ubuffer[type].length > 50) { // Limit buffer size to 50
+    //     ubuffer[type].shift();
+    // }
     rbuffer[type] = [];
 }
 
@@ -70,7 +71,7 @@ export function undo(type, ref) {
     }
     let action = ubuffer[type].pop();
     switch (type) {
-        case "order": {
+        case "order": { // Block statement to contain variables
             let id = action[0];
             let amount = action[1];
             if (ref.get(id) > amount) {

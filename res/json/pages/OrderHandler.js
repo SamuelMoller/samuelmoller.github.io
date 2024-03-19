@@ -64,15 +64,15 @@ export class OrderHandler {
             $("<button id='orderNow'>Order now</button>").on("click", function() {
                 self.send();
             }).appendTo("#orderBasketFooter");
-            $("<button id='basketUndo'>Undo</button>").on("click", function() {
+            $("<img id='basketUndo' src='res/img/svg/undo.svg' />").on("click", function() {
                 self.items = buffer.undo("order", self.items)
                 self.update();
             }).appendTo("#orderBasketHeader");
-            $("<button id='basketRedo'>Redo</button>").on("click", function() {
+            $("<img id='basketRedo' src='res/img/svg/redo.svg' />").on("click", function() {
                 self.items = buffer.redo("order", self.items)
                 self.update();
             }).appendTo("#orderBasketHeader");
-            self.displayBasket(1); // HACK: Dodging my CSS responsibilities
+            // self.displayBasket(1); // HACK: Dodging my CSS responsibilities
         }
     }
 
@@ -103,7 +103,7 @@ export class OrderHandler {
                 }  
             }
         });
-        $("#footerTotal").text("€" + util.toFixed(total, 2));
+        $("#footerTotal").text("Total: €" + util.toFixed(total, 2));
     }
 
 // =====================================================================================================

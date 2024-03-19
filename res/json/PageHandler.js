@@ -1,3 +1,8 @@
+// =====================================================================================================
+// Samuel Möller, 2024
+//
+// =====================================================================================================
+
 import * as util from "./Utilities.js";
 import { Header } from "./pages/Header.js";
 import { Hero } from "./pages/Hero.js";
@@ -32,5 +37,5 @@ $("document").ready(function() {    // When document is ready/loaded
     const hero = new Hero("body", 1);
     $("body").append("<main></main>");
     $("body").append("<footer></footer>");
-    page("inventory")
+    page("order")
 });

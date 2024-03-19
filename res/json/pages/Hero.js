@@ -19,7 +19,7 @@ export class Hero {
 
         function _init(element) {
             $(element).append("<div id='hero'></div>");
-            $("#hero").append("<img id='hero-img' src='res/img/cartoon-ships.jpg'>");
+            $("#hero").append("<img id='hero-img' src='res/img/jpg/cartoon-ships.jpg'>");
         }
     }
 }
