@@ -1,10 +1,16 @@
 // =====================================================================================================
-// Samuel Möller, 2024
+// Design, implementation, styling, and polish: Samuel Möller
 //
 // This file contains the ActionBuffer class, which is responsible for storing actions in a buffer,
 // and for undoing and redoing actions. The buffer is used to store actions for both the order and
 // inventory pages. The buffer is a stack, and the buffer size can be limited to 50 actions,
 // by uncommenting the block of code on lines 54-56.
+//
+// Currently supported actions:
+// * Add item to order
+// * Remove item from order
+// * Increment item stock
+// * Decrement item stock
 // =====================================================================================================
 
 var ubuffer = {}; // Undo buffer
@@ -16,7 +22,7 @@ rbuffer['order'] = []; // [Type, Reference, Action]
 rbuffer['inventory'] = [];
 
 // =====================================================================================================
-export function getUndo(type) {
+export function getUndo(type) { // Get the undo buffer for a specific action type
     switch (type) {
         case "order":
             return ubuffer['order'];
@@ -28,7 +34,7 @@ export function getUndo(type) {
 }
 
 // =====================================================================================================
-export function getRedo(type) {
+export function getRedo(type) { // Get the redo buffer for a specific action type
     switch (type) {
         case "order":
             return rbuffer['order'];
@@ -74,22 +80,22 @@ export function undo(type, ref) {
         case "order": { // Block statement to contain variables
             let id = action[0];
             let amount = action[1];
-            if (ref.get(id) > amount) {
+            if (ref.get(id) > amount) { // If the reference has the key, and decrementing the value would not result in a value <= 0
                 ref.set(id, ref.get(id) - amount);
-            } else if (ref.get(id) <= amount) {
+            } else if (ref.get(id) <= amount) { // Decrementing the value would result in deletion
                 ref.delete(id);
             }
-            rbuffer['order'].push(["order", ref, id, amount]);
+            rbuffer['order'].push(["order", ref, id, amount]); // Store relevant information in redo buffer
             break;
         }
         case "inventory": {
             let nr = action[0];
             let amount = action[1] * -1;
-            let index = ref.findIndex(item => item.nr === nr);
+            let index = ref.findIndex(item => item.nr === nr); // Find correct entry in the reference
             if (index > -1) {
                 ref[index].stock += amount;
             }
-            rbuffer['inventory'].push(action);
+            rbuffer['inventory'].push(action); // Store in redo buffer
             break;
         }
         default:

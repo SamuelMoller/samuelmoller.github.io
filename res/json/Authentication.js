@@ -3,7 +3,6 @@
 // Styling: Ayo Eyesan
 // Integration & polish: Samuel Möller
 //
-// TODO: Persisting login state
 // =====================================================================================================
 
 import * as PH from './PageHandler.js';
@@ -67,16 +66,16 @@ export class Authentication {
         redirect(auth);
 
         function _login(username, password) {
-            let user = DB["users"].filter(function(data) { return data.username == username})[0];
+            let user = DB["users"].filter(function(data) { return data.username == username})[0]; // Grab correct DB entry for that user
             if (user === undefined) {
                 return -1;
-            } else if (user["password"] === password) {
+            } else if (user["password"] === password) { // Check if username matches with password
                 return user["credentials"];
             }
             return -1;
         }
 
-        function redirect(arg) {
+        function redirect(arg) { // Redirect to a page suited for account type
             switch (arg) {
                 case 0: // Manager
                     PH.page("inventory");
@@ -92,7 +91,7 @@ export class Authentication {
                     break;
                 default:
                     alert("No account associated with this username and/or password");
-                    $("#password").val("");
+                    $("#password").val(""); // Clear password entry field
             }
         }
     };

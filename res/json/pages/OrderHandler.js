@@ -1,9 +1,5 @@
 // =====================================================================================================
-// Samuel Möller, 2024
-//
-// This file contains the OrderHandler class, which is responsible for creating an order menu,
-// listing items, adding items to an order, and printing the order. It also contains a debug
-// method that prints all beers from the JSON database file.
+// Design, implementation, styling, and polish: Samuel Möller
 // =====================================================================================================
 
 import * as PH from '../PageHandler.js';
@@ -31,7 +27,7 @@ export class OrderHandler {
         .done((data) => {  // Use an arrow function for reasons
             self.data = data;
             PH.clear();
-            _init(self.arg1);
+            _init(self.arg1); // Only initialize when JSON is loaded
         })
         .fail((jqXHR, textStatus, error) => {
             console.log("getJSON failed, status: " + textStatus + ", error: " + error);
@@ -39,13 +35,14 @@ export class OrderHandler {
         
         function _init(element) {
             /* Menu */
+            // Initiates elements to be populated with values from update()
             $(element).append("<div id='orderContent'></div>");
             $("#orderContent").append("<div id='orderBackground'></div>");
             $.each(self.data, function(key, val) { // Iterate over entries
                 $('<div id=orderContainer' + val.nr + ' class=beverageItemContainer draggable=true>').on("click", function() { // Create div element with click event listener and unique id
                     self.add(val.articleid); // Add item to order
                 }).on("dragstart", function(e) {
-                    util.order_drag(e, val.name, val.priceinclvat, val.articleid);
+                    util.order_drag(e, val.articleid); // Initiate drag response
             }).appendTo("#orderBackground");
                 $("#orderContainer" + val.nr).append("<img src='res/img/products/beer/" + val.articleid + ".jpg'>"); // Consider a listener for image load here
                 $("<p>").text(val.name).appendTo("#orderContainer" + val.nr); // Item name
@@ -54,12 +51,12 @@ export class OrderHandler {
             /* Basket */
             $("#orderContent").append("<div id='orderBasket'></div>");
             $("#orderBasket").on("drop", function(e) {
-                util.order_drop(e, self);
-            }).on("dragover", util.allowDrop);
+                util.order_drop(e, self); // Execute response when dragged object is dropped
+            }).on("dragover", util.allowDrop); // I love chaining jQuery functions
             $("#orderBasket").append("<div id='orderBasketHeader'></div>");
             $("#orderBasketHeader").append("<div id=orderBasketHeader-L></div>");
             $("#orderBasketHeader").append("<div id=orderBasketHeader-R></div>");
-            $("#orderBasketHeader-L").append("<h2>" + util.trans("order") + "</h2>");
+            $("#orderBasketHeader-L").append("<h2>" + util.trans("order") + "</h2>"); // Get translated string
 
             $("#orderBasket").append("<div id='orderBasketContent'></div>");
 
@@ -68,8 +65,8 @@ export class OrderHandler {
             $("#orderBasketFooter").append("<div id='orderBasketFooter-R'></div>");
 
             $("<img id='basketUndo' src='res/img/svg/undo.svg' />").on("click", function() {
-                self.items = buffer.undo("order", self.items)
-                self.update();
+                self.items = buffer.undo("order", self.items) // Add to UNDO-REDO buffer
+                self.update(); // Update the order, per the MVC paradigm
             }).appendTo("#orderBasketHeader-R");
             $("<img id='basketRedo' src='res/img/svg/redo.svg' />").on("click", function() {
                 self.items = buffer.redo("order", self.items)
@@ -79,7 +76,6 @@ export class OrderHandler {
             $("<button id='orderNow'>" + util.trans("placeOrder") + "</button>").on("click", function() {
                 self.send();
             }).appendTo("#orderBasketFooter-R");
-            // self.displayBasket(1); // HACK: Dodging my CSS responsibilities
         }
     }
 
@@ -90,15 +86,15 @@ export class OrderHandler {
         let total = 0;
         $("#orderBasketContent").empty();
         self.items.forEach((val, key) => {
-            let name = self.data.find(item => item.articleid === key).name;
-            let price = self.data.find(item => item.articleid === key).priceinclvat;
+            let name = self.data.find(item => item.articleid === key).name; // Lookup name from data
+            let price = self.data.find(item => item.articleid === key).priceinclvat; // Do the same for price
             total += price * val;
             $("<div id=basketItem" + key + " class='basketItem'></div>").on("click", function() {
                 self.items.set(key, val - 1);
                 if (val - 1 <= 0) {
-                    self.items.delete(key);
+                    self.items.delete(key); // Remove item from order if count is 0
                 }
-                buffer.add("order", [key, -1]);
+                buffer.add("order", [key, -1]); // Add to UNDO-REDO buffer
                 self.update();
             }).appendTo("#orderBasketContent");
             $("#basketItem" + key).append("<p id='" + key + "-1' style='flex-flow: column nowrap;'>" + name + "</p>");
@@ -114,7 +110,7 @@ export class OrderHandler {
     }
 
 // =====================================================================================================
-    displayBasket(bool) {
+    displayBasket(bool) { // DEPRECATED
         /* Display or hide the basket. */
         if (bool) {
             $("#orderContent").css("width", "80%");
@@ -145,10 +141,10 @@ export class OrderHandler {
 // =====================================================================================================
     send() {
         /* Send the order. */
-        /* TODO: Modify local storage */
+        /* Consider modifying local storage as well */
         let self = this;
         self.items.forEach((val, key) => {
-            self.order.add(key, val);
+            self.order.add(key, val); // Add item to order object (for passing to other modules)
         });
         alert(util.trans("orderThanks"));
         self.empty();
@@ -163,8 +159,7 @@ export class OrderHandler {
         self.totalCost = 0;
         $("#footerTotal").text(util.trans("total") + ": €0");
         buffer.clear("order");
-        self.update();
-        // self.displayBasket(0); // HACK
+        self.update(); // Reload the order basket
     }
 
 // =====================================================================================================

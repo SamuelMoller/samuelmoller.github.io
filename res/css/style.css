@@ -1,0 +1,486 @@
+/* ===================================================================================================== */
+/* Samuel Möller, 2024                                                                                   */
+/*                                                                                                       */
+/* ===================================================================================================== */
+
+/* this is an ultrawide stylesheet in disguise */
+
+/* ===================================================================================================== */
+/* || COLORS                                                                                             */
+/* ===================================================================================================== */
+
+:root {
+    --dutchman-gray: #242424;
+    --dutchman-dark-gray: #161616;
+    --dutchman-brown: #7A4605;
+    --dutchman-cream: #FFFDE8;
+    --dutchman-dark-red: #6e0000;
+}
+
+/* ===================================================================================================== */
+/* || GENERAL                                                                                            */
+/* ===================================================================================================== */
+* {
+    font-size: 3vmin;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Potential for serious tomfoolery */
+    height: 100%;
+}
+
+title {
+    display: none;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background-size: cover;
+    background-color: var(--dutchman-gray);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 0.03em 0.03em rgba(0, 0, 0, 0.75);
+    color: white;
+    width: 100%;
+}
+
+/* ===================================================================================================== */
+/* || HEADER                                                                                             */
+/* ===================================================================================================== */
+header,
+.header-content {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    width: 100%;
+    max-height: 10%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+    .header-content {
+        justify-content: start;
+        padding-left: 15vw;
+        padding-right: 15vw;
+    }
+        #header-content-left {
+            display: inherit;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-left img,
+            #header-content-left h1 {
+                cursor: pointer;
+            }
+
+            #header-content-left img {
+                width: 7vmin;
+                height: 7vmin;
+            }
+
+        #header-content-right {
+            display: inherit;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 0 0 50%;
+            gap: 3vmin;
+        }
+            #header-content-right p {
+                font-size: 2vmin;
+            }
+
+            #headerLogin,
+            #headerInventory {
+                cursor: pointer;
+            }
+
+/* ===================================================================================================== */
+/* || FOOTER                                                                                             */
+/* ===================================================================================================== */
+footer,
+.footer-content {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 10%;
+    /* background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
+}
+
+.footer-content {
+    justify-content: start;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 0.5vw;
+
+}
+
+#footer-content-left {
+    display: inherit;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 50%;
+    gap: 3vmin;
+}
+
+#footer-content-right {
+    display: inherit;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 50%;
+    gap: 1vmin;
+}
+    #footer-content-right img {
+        width: 4vmin;
+        height: 2vmin;
+        filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+    }
+
+/* ===================================================================================================== */
+/* || MAIN CONTENT                                                                                       */
+/* ===================================================================================================== */
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================================================================================================== */
+/* || HERO                                                                                          */
+/* ===================================================================================================== */
+#hero,
+#hero-img {
+    width: 100%;
+    height: 30vmin;
+    margin-bottom: 2vmin;
+    object-fit: cover;
+}
+
+
+/* ===================================================================================================== */
+/* || ORDERING                                                                                           */
+/* ===================================================================================================== */
+#orderContent {
+    position: relative;
+    top: 0;
+    left: -7.5%;
+    display: block;
+    width: 80%;
+    height: 100%;
+}
+
+#orderBackground {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    overflow: auto;
+    top: 0;
+    left: 0;
+    background-color: var(--dutchman-cream);
+    width: 100%;
+    height: 66vmin;
+    border-radius: 0.3em;
+    gap: 2vmin;
+    padding: 1vmin;
+}
+
+.beverageItemContainer {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    height: 18vw;
+    width: 18vw;
+    cursor: default;
+    user-select: none;
+    background-color: black;
+    border-radius: 0.3em;
+     /* width: 23%;
+    height: 28.031%; */
+}
+    .beverageItemContainer img, 
+    .beverageItemContainer p {
+        pointer-events: none;
+    }
+
+    .beverageItemContainer img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.3em;
+    }
+    .beverageItemContainer p {
+        font-size: 1.3vw;
+        z-index: 10;
+        font-family: 'Arial Black', 'Tahoma', Arial, sans-serif;
+        word-spacing: 100vw; /* Force line break after every word */
+        padding-left: 0.5vw;
+        text-shadow: 0.1em 0.1em rgba(0, 0, 0, 0.75);
+    }
+
+/* ===================================================================================================== */
+/* || BASKET                                                                                             */
+/* ===================================================================================================== */
+
+#orderBasket {
+    visibility: visible;
+    position: absolute;
+    top: 5%;
+    left: 100%;
+    margin-left: 1.5%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: start;
+    width: 15vmax;
+    height: 50vmin;
+}
+    #orderBasket h2{
+        font-size: calc(1vw + 1vh);
+    }
+#orderBasketHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 10%;
+    background-color: var(--dutchman-brown);
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+}
+    #orderBasketHeader img {
+        width: 3vmin;
+        height: 3vmin;
+    }
+
+#orderBasketHeader-R {
+    display: flex;
+    align-content: center;
+    gap: 0.5vw;
+}
+
+#orderBasketContent {
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: auto;
+    width: 100%;
+    height: 80%;
+    background-color: var(--dutchman-cream);
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+    padding-top: 0.4vw;
+}
+#orderBasketFooter {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1%;
+    width: 100%;
+    height: 10%;
+    background-color: var(--dutchman-brown);
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    box-shadow: 0.3em 0.3em 0.3em rgba(0, 0, 0, 0.75);
+}
+    #orderBasketFooter button,
+    #orderBasketFooter h2 {
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 40%;  /* (11/2): This is a temporary fix.     */
+                        /* (19/3): It was not a temporary fix.  */
+    }
+#orderBasketFooter-L h2 {
+    font-size: calc(1vw + 1vh);
+}
+
+#orderBasketFooter-R button {
+    font-size: calc(0.75vw + 0.75vh);
+}
+
+.basketItem {
+    flex-flow: row nowrap;
+    gap: 0.4vw;
+    color: black;
+    text-shadow: none;
+    white-space: nowrap;
+    margin-bottom: 0.1vw;
+    margin-top: 0.1vw;
+    margin-left: 0.4vw;
+    margin-right: 0.4vw;
+    border: 0.05vw solid;
+    padding: 0.2vw;
+    background-color: white;
+}
+    .basketItem p {
+        font-size: 0.8vw;
+        font-weight: bold;
+    }
+/* ===================================================================================================== */
+/* || FOOTER                                                                                             */
+/* ===================================================================================================== */
+footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 2vmin;
+}
+
+/* ===================================================================================================== */
+/* || INVENTORY                                                                                          */
+/* ===================================================================================================== */
+#inventoryContent {
+    width: 95%;
+    overflow: auto;
+    border: 1px solid white;
+}
+
+/* Basic styles for tables */
+table {
+    width: 100%; /* Table width is 100% */
+    border-collapse: collapse; /* Borders collapse to a single line */
+    border: 1px solid;
+    margin-bottom: 20px; /* Margin at the bottom of the table */
+}
+
+/* Basic styles for th and td inside tables */
+th, td {
+    text-align: left; /* Text aligned to the left */
+    padding: 10px; /* Padding */
+    border-bottom: 1px solid #ddd; /* Bottom border */
+}
+
+/* Styles for table headers */
+th {
+    background-color: var(--dutchman-gray); /* Dark grey background */
+    color: white; /* White text */
+}
+
+/* Styles when hovering over table rows */
+tr:hover {
+    background-color: var(--dutchman-dark-gray); /* Light grey background */
+}
+
+/* Styles for the notification at the bottom */
+#notification {
+    color: red; /* Red text */
+    margin-bottom: 20px; /* Margin at the bottom */
+}
+
+/* Basic styles for buttons */
+button.remove-item {
+    background-color: #e74c3c; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Cursor becomes a hand icon */
+    transition: background-color 0.3s; /* Transition effect for background color */
+}
+
+/* Styles for buttons on hover */
+button.remove-item:hover {
+    background-color: #c0392b; /* Dark red background */
+}
+
+/* Styles for rows indicating low stock */
+.low-stock {
+    background-color: var(--dutchman-dark-red); /* Pale red background */
+}
+
+#inventoryContent-sub {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: 100%;
+    gap: 10%;
+}
+
+#inventoryContent-UndoRedo {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5%;
+    flex-flow: column nowrap;
+    padding-top: 4vmin;
+}
+    #inventoryContent-UndoRedo button {
+        height: 5vmin;
+        width: 15vmin;
+    }
+
+/* ===================================================================================================== */
+/* || LOGIN                                                                                          */
+/* ===================================================================================================== */
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 600px;
+    background-color: var(--dutchman-dark-gray);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    font-size: 15px;
+    font-weight: bold;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+input[type=text],
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

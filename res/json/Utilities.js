@@ -1,4 +1,11 @@
+// =====================================================================================================
+// Design, implementation, styling, and polish: Samuel Möller
+// =====================================================================================================
+
 import { Locale as locale } from './DB/Locale.js';
+
+// =====================================================================================================
+// Translation functions
 
 export function setLang(lang) {
     sessionStorage.setItem("lang", lang);
@@ -14,26 +21,34 @@ export function trans(key) {
 };
 
 // =====================================================================================================
+// Float to fixed decimal places
+
 export function toFixed(num, fixed) {
     var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     return num.toString().match(re)[0];
 }
 
 // =====================================================================================================
-export function allowDrop(e) {
+// Drag and drop functions
+
+export function allowDrop(e) { // Prevent default behavior of dropping object
     e.preventDefault();
 }
 
-export function order_drag(e, name, price, articleId) {
+export function order_drag(e, articleId) { // Set key to id of dragged object
     e.originalEvent.dataTransfer.setData("id", articleId);
 }
 
-export function order_drop(e, orderHandler) {
+export function order_drop(e, orderHandler) { // Get id of dragged object and add it to the order
     const id = e.originalEvent.dataTransfer.getData("id");
     orderHandler.add(id);
 }
 
 // =====================================================================================================
+// Idle timer
+// Could be expanded with further functionality, 
+// such as clearing session/local storage, or redirecting to a new page.
+
 export function idleTimer(lim, page) {
     let time = 0;
     let events = ['mousedown', 'keypress', 'scroll', 'touchstart'];
