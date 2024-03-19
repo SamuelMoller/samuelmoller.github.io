@@ -1,5 +1,5 @@
 // =====================================================================================================
-// Samuel Möller, 2024
+// Design, implementation, styling, and polish: Samuel Möller
 //
 // This file contains the Order class, which is responsible for mapping items to an order, adding
 // and removing items from the order, and printing the order.

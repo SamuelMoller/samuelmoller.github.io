@@ -1,3 +1,13 @@
+// =====================================================================================================
+// Design & implementation: Yixin Huang
+// Styling: Yixin Huang
+// Integration & polish: Samuel Möller
+// =====================================================================================================
+
+import * as PH from '../PageHandler.js';
+import * as buffer from "../struct/ActionBuffer.js";
+import * as util from "../Utilities.js";
+
 export class Inventory {
     constructor(arg1, arg2) {
         this.arg1 = arg1;
@@ -8,42 +18,55 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     init() {
         let self = this;
         $.getJSON("res/json/DB/Stock.js")
-        .done((data) => {  // Use an arrow function
+        .done((data) => {  // Use an arrow function for reasons
             self.inventoryData = data;
-            self._init(self.arg1);
+            PH.clear();
+            _init(self.arg1);
         })
         .fail((jqXHR, textStatus, error) => {
             console.log("getJSON failed, status: " + textStatus + ", error: " + error);
         });
+
+        function _init(element) {
+            $(element).append("<div id='notification' style='display: none;'></div>");
+            $(element).append("<div id='inventoryContent'>");
+            $('#inventoryContent').append("<table id='inventory'>");
+            $("#inventory").append("<thead><tr><th>#</th><th>" + util.trans("name") + "</th><th>" + util.trans("country") + "</th><th>" + util.trans("type") + "</th><th>" + util.trans("price") + "</th><th>" + util.trans("stock") + "</th><th>" + util.trans("actions") + "</th></tr></thead>")
+            .append("<tbody></tbody>")
+            .append("</table>");
+
+            $(element).append("<div id='inventoryContent-sub'></div>");
+            $('#inventoryContent-sub').append("<div id='addItemForm'></div>");
+            $("#addItemForm").append("<h2>" + util.trans("addNewItem") + "</h2>");
+            $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='#'><br><input type='text' id='addItemName' placeholder='" + util.trans("name") + "'><br><input type='text' id='addItemCountry' placeholder='" + util.trans("country") + "'><br><input type='text' id='addItemType' placeholder='" + util.trans("type") + "'><br><input type='number' step='0.01' id='addItemPrice' placeholder='" + util.trans("price") + "'><br><input type='number' id='addItemStock' placeholder='" + util.trans("stock") + "'><br>");
+            $("#addItemForm").append("<button id='submitNewItem'>" + util.trans("submit") + "</button>");
+
+            $('#inventoryContent-sub').append("<div id='inventoryContent-UndoRedo'></div>");
+            $("<button id='inventoryUndo'>" + util.trans("undo") + "</button>").on("click", function() {
+                self.inventoryData = buffer.undo("inventory", self.inventoryData);
+                self.display();
+            }).appendTo('#inventoryContent-UndoRedo');
+            $("<button id='inventoryRedo'>" + util.trans("redo") + "</button>").on("click", function() {
+                self.inventoryData = buffer.redo("inventory", self.inventoryData);
+                self.display();
+            }).appendTo('#inventoryContent-UndoRedo');
+            self.display();
+        }
     }
 
-    _init(element) {
-        let self = this;
-        $(element).append("<div id='notification' style='display: none;'></div>");
-        $(element).append("<div id='inventoryContent'>");
-        $('#inventoryContent').append("<table id='inventory'>");
-        $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
-        .append("<tbody></tbody>")
-        .append("</table>");
-
-        $(element).append("<div id='addItemForm'></div>");
-        $("#addItemForm").append("<h2>Add new item</h2>");
-        $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
-        $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
-        self.display();
-    }
-
+// =====================================================================================================
     display() {
         // Display inventory
         let self = this;
         $('#inventory tbody').empty();
         $.each(self.inventoryData, function(key, val) {
             var rowClass = val.stock < 5 ? 'low-stock' : '';
-            var actionButtons = '<button class="edit-item" data-nr="' + val.nr + '">Edit</button> ';
-            actionButtons += val.stock > 0 ? '<button class="remove-item" data-nr="' + val.nr + '">Remove</button>' : 'out of stock';
+            var actionButtons = '<button class="edit-item" data-nr="' + val.nr + '">'+ util.trans("edit") + '</button> ';
+            actionButtons += val.stock > 0 ? '<button class="remove-item" data-nr="' + val.nr + '">' + util.trans("remove") + '</button>' : util.trans("outOfStock");
             $('#inventory tbody').append('<tr class="' + rowClass + '"><td>' + val.nr + '</td><td>' + val.name + '</td><td>' + val.country + '</td><td>' + val.type + '</td><td>$' + val.price + '</td><td>' + val.stock + '</td><td>' + actionButtons + '</td></tr>');
         });
 
@@ -54,7 +77,7 @@ export class Inventory {
 
         $('.edit-item').on('click', function() {
             var nr = $(this).attr('data-nr');
-            var newStock = prompt("Please enter the new stock quantity for this item:");
+            var newStock = prompt(util.trans("newQuantity"));
             if (newStock !== null) {
                 self.modifyItemStock(nr, parseInt(newStock, 10) - self.inventoryData.find(item => item.nr === nr).stock);
             }
@@ -72,26 +95,24 @@ export class Inventory {
             self.addItem(newItem);
         
             // Clear the form
-            $('#addItemNr').val('');
-            $('#addItemName').val('');
-            $('#addItemCountry').val('');
-            $('#addItemType').val('');
-            $('#addItemPrice').val('');
-            $('#addItemStock').val('');
+            $("input[id^='addItem']").val('');
         });
         self.checkLowStock();
     }
-    
+
+// =====================================================================================================
     // Modify item stock level
     modifyItemStock(nr, amount) {
         let self = this;
         var itemIndex = self.inventoryData.findIndex(item => item.nr === nr);
         if (itemIndex > -1) {
             self.inventoryData[itemIndex].stock += amount;
+            buffer.add("inventory", [nr, amount]);
             self.display();
         }
     }
 
+// =====================================================================================================
     // Order refills for low stock items
     orderRefills(nr) {
         let self = this;
@@ -103,6 +124,7 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     // Add a new item to the inventory
     addItem(item) {
         let self = this;
@@ -110,6 +132,7 @@ export class Inventory {
         self.display();
     }
 
+// =====================================================================================================
     // Remove an item from the inventory
     removeItem(nr) {
         let self = this;
@@ -120,20 +143,18 @@ export class Inventory {
         }
     }
 
+// =====================================================================================================
     checkLowStock() {
         let self = this;
         var lowStockItems = self.inventoryData.filter(item => item.stock < 5 && item.stock > 0);
         if (lowStockItems.length > 0) {
-            $('#notification').text('Warning: Some items are low on stock!').show();
+            $('#notification').text(util.trans("lowStock")).show();
         } else {
             $('#notification').hide();
         }
     }
 
-    
-
-    
-
+// =====================================================================================================
     // Example usage
     // displayInventory();
 
