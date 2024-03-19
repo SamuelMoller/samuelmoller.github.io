@@ -34,8 +34,12 @@ export class Header {
         $("#headerLogin").text("Logout");
         $("#headerLogin").on("click", function() {
             sessionStorage.clear();
+            $("#headerInventory").remove();
             $("#headerLogin").text("Login");
         });
+        $("<p id='headerInventory'>Inventory</p>").on("click", function() {
+            PH.page("inventory");
+        }).insertBefore("#headerLogin");
     }
 }
 

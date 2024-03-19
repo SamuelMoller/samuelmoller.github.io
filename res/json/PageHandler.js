@@ -37,5 +37,5 @@ $("document").ready(function() {    // When document is ready/loaded
     const hero = new Hero("body", 1);
     $("body").append("<main></main>");
     $("body").append("<footer></footer>");
-    page("inventory")
+    page("order")
 });

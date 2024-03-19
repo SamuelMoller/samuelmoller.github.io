@@ -145,11 +145,12 @@ export class OrderHandler {
 // =====================================================================================================
     send() {
         /* Send the order. */
+        /* TODO: Modify local storage */
         let self = this;
         self.items.forEach((val, key) => {
             self.order.add(key, val);
         });
-        console.log(self.order.items); // DEBUG: Do something useful here
+        alert("Your order has been sent!\nThank you for your purchase!");
         self.empty();
     }
 

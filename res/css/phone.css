@@ -101,7 +101,8 @@ header,
                 font-size: 2vmin;
             }
 
-            #headerLogin {
+            #headerLogin,
+            #headerInventory {
                 cursor: pointer;
             }
 

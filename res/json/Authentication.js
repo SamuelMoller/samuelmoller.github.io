@@ -91,17 +91,8 @@ export class Authentication {
                     break;
                 default:
                     alert("No account associated with this username and/or password");
+                    $("#password").val("");
             }
         }
     };
-
-// =====================================================================================================
-    logout() {
-        const form = document.querySelector("form")
-    
-        form.addEventListener("click",(e)=>{
-            e.preventDefault()
-            window.location.replace = "Login.js"
-        });
-    }
 }
