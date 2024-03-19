@@ -14,6 +14,6 @@ The (approximate) distribution of the work load is as follows:
 
 * **Samuel Möller**: In charge of framework, ordering, UNDO-REDO, drag-and-drop, graphical design, styling, utility functions, integration of everyone's solutions, team management, and fiddling with details and doodads. Made an especially great effort in the project due to previous experience with programming and web development.
 
-The work done on this project has been sporadic and in bursts, but ultimately, this team pulled together to deliver a worthy final product. Development was not as smooth as one could hope, but this is mainly due to lacking experience with JavaScript/jQuery and heavy scheduling conflicts with other university courses.
+The work done on this project has been sporadic and in bursts, but ultimately, this team pulled together to deliver a worthy final product. Development was not as smooth as one could hope, but this is mainly due to lacking experience with JavaScript/jQuery and heavy scheduling conflicts with other university courses. We were unable to fulfill all requirements as established during the course seminars, but we've at least aimed to hand in a project which fulfills the "General requirements" stated on the course page, while still presenting a product pleasing to the eye.
 
 In conclusion, we're all proud of what has been produced, and hope the results are satisfactory.
