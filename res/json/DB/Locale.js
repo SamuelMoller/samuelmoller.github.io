@@ -6,21 +6,21 @@ export var Locale = {
             "redo": "Redo",
             "addNewItem": "Add new item",
         }],
-        "sv-SE": [
+    "sv-SE": [
         {
             "submit": "Skicka",
             "undo": "Ångra",
             "redo": "Gör om",
             "addNewItem": "Lägg till ny vara",
         }],
-        "es-ES": [
+    "es-ES": [
         {
             "submit": "Enviar",
             "undo": "Deshacer",
             "redo": "Rehacer",
             "addNewItem": "Añadir nuevo artículo",
         }],
-        "fr-FR": [
+    "fr-FR": [
             {
             "submit": "Soumettre",
             "undo": "Annuler",
