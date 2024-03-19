@@ -1,4 +1,4 @@
-//import { Header } from "./Header";
+import { getDropdown } from "./Header";
 
 export class Inventory {
     constructor(arg1, arg2) {
@@ -23,6 +23,7 @@ export class Inventory {
     }
 
     _init(element) {
+        const dropdown = getDropdown();
         const languageSelector2 = {
             'en': {
                 'Add': 'Add new item',
