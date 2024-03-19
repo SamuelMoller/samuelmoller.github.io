@@ -57,21 +57,28 @@ export class OrderHandler {
                 util.order_drop(e, self);
             }).on("dragover", util.allowDrop);
             $("#orderBasket").append("<div id='orderBasketHeader'></div>");
+            $("#orderBasketHeader").append("<div id=orderBasketHeader-L></div>");
+            $("#orderBasketHeader").append("<div id=orderBasketHeader-R></div>");
+            $("#orderBasketHeader-L").append("<h2>Order</h2>");
+
             $("#orderBasket").append("<div id='orderBasketContent'></div>");
+
             $("#orderBasket").append("<div id='orderBasketFooter'></div>");
-            $("#orderBasketHeader").append("<h2>Order</h2>");
-            $("#orderBasketFooter").append("<h2 id='footerTotal'>Total: €0</h2>");
-            $("<button id='orderNow'>Order now</button>").on("click", function() {
-                self.send();
-            }).appendTo("#orderBasketFooter");
+            $("#orderBasketFooter").append("<div id='orderBasketFooter-L'></div>");
+            $("#orderBasketFooter").append("<div id='orderBasketFooter-R'></div>");
+
             $("<img id='basketUndo' src='res/img/svg/undo.svg' />").on("click", function() {
                 self.items = buffer.undo("order", self.items)
                 self.update();
-            }).appendTo("#orderBasketHeader");
+            }).appendTo("#orderBasketHeader-R");
             $("<img id='basketRedo' src='res/img/svg/redo.svg' />").on("click", function() {
                 self.items = buffer.redo("order", self.items)
                 self.update();
-            }).appendTo("#orderBasketHeader");
+            }).appendTo("#orderBasketHeader-R");
+            $("#orderBasketFooter-L").append("<h2 id='footerTotal'>Total: €0</h2>");
+            $("<button id='orderNow'>Order now</button>").on("click", function() {
+                self.send();
+            }).appendTo("#orderBasketFooter-R");
             // self.displayBasket(1); // HACK: Dodging my CSS responsibilities
         }
     }

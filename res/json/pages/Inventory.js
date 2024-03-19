@@ -32,24 +32,27 @@ export class Inventory {
 
         function _init(element) {
             $(element).append("<div id='notification' style='display: none;'></div>");
-            $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
-                self.inventoryData = buffer.undo("inventory", self.inventoryData);
-                self.display();
-            }).appendTo(element);
-            $("<button id='inventoryRedo'>Redo</button>").on("click", function() {
-                self.inventoryData = buffer.redo("inventory", self.inventoryData);
-                self.display();
-            }).appendTo(element);
             $(element).append("<div id='inventoryContent'>");
             $('#inventoryContent').append("<table id='inventory'>");
             $("#inventory").append("<thead><tr><th>NR</th><th>Name</th><th>Country</th><th>Type</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>")
             .append("<tbody></tbody>")
             .append("</table>");
-    
-            $(element).append("<div id='addItemForm'></div>");
+
+            $(element).append("<div id='inventoryContent-sub'></div>");
+            $('#inventoryContent-sub').append("<div id='addItemForm'></div>");
             $("#addItemForm").append("<h2>Add new item</h2>");
             $("#addItemForm").append("<input type='text' id='addItemNr' placeholder='NR'><br><input type='text' id='addItemName' placeholder='Name'><br><input type='text' id='addItemCountry' placeholder='Country'><br><input type='text' id='addItemType' placeholder='Type'><br><input type='number' step='0.01' id='addItemPrice' placeholder='Price'><br><input type='number' id='addItemStock' placeholder='Stock'><br>");
             $("#addItemForm").append("<button id='submitNewItem'>Submit</button>");
+
+            $('#inventoryContent-sub').append("<div id='inventoryContent-UndoRedo'></div>");
+            $("<button id='inventoryUndo'>Undo</button>").on("click", function() {
+                self.inventoryData = buffer.undo("inventory", self.inventoryData);
+                self.display();
+            }).appendTo('#inventoryContent-UndoRedo');
+            $("<button id='inventoryRedo'>Redo</button>").on("click", function() {
+                self.inventoryData = buffer.redo("inventory", self.inventoryData);
+                self.display();
+            }).appendTo('#inventoryContent-UndoRedo');
             self.display();
         }
     }

@@ -221,7 +221,7 @@ main {
 #orderBasketHeader {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
     height: 10%;
     background-color: var(--dutchman-brown);
@@ -243,7 +243,7 @@ main {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     gap: 1%;
     width: 100%;
     height: 10%;
@@ -276,6 +276,7 @@ main {
 }
     .basketItem p {
         font-size: 0.8vw;
+        font-weight: bold;
     }
 /* ===================================================================================================== */
 /* || FOOTER                                                                                             */
@@ -294,6 +295,8 @@ footer {
 /* ===================================================================================================== */
 #inventoryContent {
     width: 95%;
+    overflow: auto;
+    border: 1px solid white;
 }
 
 /* Basic styles for tables */
@@ -347,6 +350,26 @@ button.remove-item:hover {
 .low-stock {
     background-color: var(--dutchman-dark-red); /* Pale red background */
 }
+
+#inventoryContent-sub {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    width: 100%;
+    gap: 10%;
+}
+
+#inventoryContent-UndoRedo {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5%;
+    flex-flow: column nowrap;
+    padding-top: 4vmin;
+}
+    #inventoryContent-UndoRedo button {
+        height: 5vmin;
+        width: 15vmin;
+    }
 
 /* ===================================================================================================== */
 /* || LOGIN                                                                                          */
