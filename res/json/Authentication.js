@@ -8,6 +8,7 @@
 
 import * as PH from './PageHandler.js';
 import { DB } from './DB/Users.js';
+import { instance as header } from './pages/Header.js';
 
 export class Authentication {
     constructor(arg1, arg2) {
@@ -43,7 +44,7 @@ export class Authentication {
     
 
 // =====================================================================================================
-    login() {
+    login(username = null, password = null) {
         /* 
         Credentials:
         -1: Undefined/Denied
@@ -53,26 +54,16 @@ export class Authentication {
         3: VIP
         4: Guest (unused)
         */
+        username = $("#username").val();
+        password = $("#password").val();
 
-        const username = $("#username").val();
-        const password = $("#password").val();
-        
-        switch (parseInt(_login(username, password))) {
-            case 0: // Manager
-                PH.page("inventory");
-                break;
-            case 1: // Bartender
-                PH.page("inventory");
-                break;
-            case 2: // Waiting staff
-                PH.page("order");
-                break;
-            case 3: // VIP
-                PH.page("order");
-                break;
-            default:
-                alert("No account associated with this username and/or password");
+        let auth = parseInt(_login(username, password));
+        if (auth > -1) {
+            sessionStorage.setItem("username", username); // HORRIBLE security, but it's a prototype,
+            sessionStorage.setItem("password", password); // and necessary without SQL or similar.
+            header.initAuth();
         }
+        redirect(auth);
 
         function _login(username, password) {
             let user = DB["users"].filter(function(data) { return data.username == username})[0];
@@ -82,6 +73,25 @@ export class Authentication {
                 return user["credentials"];
             }
             return -1;
+        }
+
+        function redirect(arg) {
+            switch (arg) {
+                case 0: // Manager
+                    PH.page("inventory");
+                    break;
+                case 1: // Bartender
+                    PH.page("inventory");
+                    break;
+                case 2: // Waiting staff
+                    PH.page("order");
+                    break;
+                case 3: // VIP
+                    PH.page("order");
+                    break;
+                default:
+                    alert("No account associated with this username and/or password");
+            }
         }
     };
 

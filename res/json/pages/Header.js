@@ -6,11 +6,11 @@ import * as PH from '../PageHandler.js';
 
 export class Header {
     constructor() {
-        this.initHeader();
+        this.init();
     }
 
 // =====================================================================================================
-    initHeader() {
+    init() {
         let self = this;
         $("header").append("<div class='header-content'></div>");
         $(".header-content").append("<div id='header-content-left'></div>");
@@ -29,4 +29,15 @@ export class Header {
             PH.page("login");
         });
     }
+
+    initAuth() {
+        $("#headerLogin").text("Logout");
+        $("#headerLogin").on("click", function() {
+            sessionStorage.clear();
+            $("#headerLogin").text("Login");
+        });
+    }
 }
+
+const instance = new Header();
+export { instance };
